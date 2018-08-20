@@ -18,7 +18,9 @@ This repo contains the site for Ajaweed
     - Change your location to the project and run the following commands:
     ```bash
     cd ajaweed-site
+    cp .env.example .env
     composer install
+    php artisan key:generate
     php artisan serve
     ```
 
