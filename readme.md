@@ -15,9 +15,10 @@ This repo contains the site for Ajaweed
     git clone https://github.com/<your username>/ajaweed-site.git
     ```
     - The command will make a copy of the project to your computer. 
-    - Change your location to the project and run the following command:
+    - Change your location to the project and run the following commands:
     ```bash
     cd ajaweed-site
+    composer install
     php artisan serve
     ```
 
