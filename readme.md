@@ -2,8 +2,18 @@
 
 This repo contains the site for Ajaweed
 
+## Prerequisites
+1. [PHP](http://php.net/downloads.php#v7.2.9) `>= 7.1`
+2. [Git](https://git-scm.com/downloads) `>= 2`
+3. PHP [Composer](https://getcomposer.org/)
+4. [Docker](https://www.docker.com/) *Optional*
 
-# How to use
+## Coding style
+- PHP: [PSR-2](https://www.php-fig.org/psr/psr-2/)
+- JS: [JS Standard](https://standardjs.com/)
+- HTML/CSS: [Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html)
+
+## How to use
 
 1. Make a fork by clicking on the `Fork` button on the top of the page.
 2. A new repo will be created in your github account.
@@ -24,3 +34,6 @@ This repo contains the site for Ajaweed
     php artisan serve
     ```
 
+## TODO
+- How to install
+- Docker (How to)
