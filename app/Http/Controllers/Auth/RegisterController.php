@@ -55,13 +55,14 @@ class RegisterController extends Controller
             'official_id' => [
                 'required',
                 'digits:10',
+                'unique:users',
                 function ($attribute, $value, $fail) {
                     if ( ! in_array($this->check_official_id($value), [1, 2])) {
                         return $fail(__('The Saudi Id / Iqama Id is not valid.'));
                     }
                 },
             ],
-            'mobile' => ['required', 'regex:/^05\d{8}$/'],
+            'mobile' => ['required', 'unique:users', 'regex:/^05\d{8}$/'],
         ],
             [
                 'mobile.regex' => 'Mobile number must be 10 digits and start with 05',
