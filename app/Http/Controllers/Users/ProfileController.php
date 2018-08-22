@@ -9,15 +9,6 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +17,9 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        $user = auth()->user();
+
+        return view('users.profiles.create', compact('user'));
     }
 
     /**
@@ -38,19 +31,33 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'gender'     => ['required', 'in:male,female'],
+            'birth_date' => ['required', 'date', 'before:13 years ago'],
+        ]);
+
+        /** @var User $user */
+        $user = auth()->user();
+
+        $profile = Profile::query()->make($data);
+
+        $user->profile()->save($profile);
+
+        return redirect()->route('users.profile.show', $user);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profile $profile
+     * @param User $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show(User $user)
     {
-        //
+        $profile = $user->profile;
+
+        return view('users.profiles.show', compact('user', 'profile'));
     }
 
     /**
@@ -62,10 +69,7 @@ class ProfileController extends Controller
      */
     public function edit(User $user)
     {
-        // If the user does not have a profile yet, we create new one to use in the form.
-        $profile = $user->profile ?? new Profile();
-
-        return view('users.profiles.edit', compact('profile', 'user'));
+        return view('users.profiles.edit');
     }
 
     /**

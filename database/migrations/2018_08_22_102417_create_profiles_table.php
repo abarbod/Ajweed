@@ -17,6 +17,10 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
 
+            $table->date('birth_date');
+
+            $table->enum('gender', ['male', 'female']);
+
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
