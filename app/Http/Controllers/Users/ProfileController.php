@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -55,13 +56,16 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Profile $profile
+     * @param User $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
+    public function edit(User $user)
     {
-        return view('users.profiles.edit', compact('profile'));
+        // If the user does not have a profile yet, we create new one to use in the form.
+        $profile = $user->profile ?? new Profile();
+
+        return view('users.profiles.edit', compact('profile', 'user'));
     }
 
     /**
