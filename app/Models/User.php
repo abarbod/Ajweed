@@ -6,12 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $official_id
- * @property string $mobile
+ * @property int     $id
+ * @property string  $name
+ * @property string  $email
+ * @property string  $password
+ * @property string  $official_id
+ * @property string  $mobile
+ * @property Profile $profile
  */
 class User extends Authenticatable
 {
@@ -36,6 +37,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    /**
+     * Relationship: A user has one profile.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }
