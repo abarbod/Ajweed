@@ -40,6 +40,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="official_id" class="col-md-4 col-form-label text-md-right">{{ __('Saudi Id / Iqama Id') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="official_id" type="text" class="form-control{{ $errors->has('official_id') ? ' is-invalid' : '' }}" name="official_id" value="{{ old('official_id') }}" required>
+
+                                @if ($errors->has('official_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('official_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

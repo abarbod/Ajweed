@@ -52,6 +52,15 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'official_id' => [
+                'required',
+                'digits:10',
+                function ($attribute, $value, $fail) {
+                    if ( ! in_array($this->check_official_id($value), [1, 2])) {
+                        return $fail(__('The Saudi Id / Iqama Id is not valid.'));
+                    }
+                },
+            ],
         ]);
     }
 
@@ -67,6 +76,42 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'official_id' => $data['official_id'],
         ]);
+    }
+
+    /**
+     * Validate a Saudi / Iqama Id.
+     *
+     * @link https://github.com/alhazmy13/Saudi-ID-Validator
+     *
+     * @param integer $id_number to validate
+     *
+     * @return bool|int|string -1 if not valid, 1 for Saudi, 2 for non-saudis
+     */
+    protected function check_official_id($id_number)
+    {
+        $id = trim($id_number);
+        if ( ! is_numeric($id)) {
+            return -1;
+        }
+        if (strlen($id) !== 10) {
+            return -1;
+        }
+        $type = substr($id, 0, 1);
+        if ($type != 2 && $type != 1) {
+            return -1;
+        }
+        $sum = 0;
+        for ($i = 0; $i < 10; $i++) {
+            if ($i % 2 == 0) {
+                $ZFOdd = str_pad((substr($id, $i, 1) * 2), 2, "0", STR_PAD_LEFT);
+                $sum   += substr($ZFOdd, 0, 1) + substr($ZFOdd, 1, 1);
+            } else {
+                $sum += substr($id, $i, 1);
+            }
+        }
+
+        return $sum % 10 ? -1 : $type;
     }
 }
