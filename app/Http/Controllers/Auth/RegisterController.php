@@ -61,7 +61,11 @@ class RegisterController extends Controller
                     }
                 },
             ],
-        ]);
+            'mobile' => ['required', 'regex:/^05\d{8}$/'],
+        ],
+            [
+                'mobile.regex' => 'Mobile number must be 10 digits and start with 05',
+            ]);
     }
 
     /**
@@ -77,6 +81,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'official_id' => $data['official_id'],
+            'mobile' => $data['mobile'],
         ]);
     }
 
