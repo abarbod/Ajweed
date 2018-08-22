@@ -61,7 +61,7 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        return view('users.profiles.edit', compact('profile'));
     }
 
     /**
