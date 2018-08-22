@@ -17,7 +17,13 @@ class ProfileController extends Controller
      */
     public function create()
     {
+        /** @var User $user */
         $user = auth()->user();
+
+        if ( ! is_null($user->profile)) {
+            // The user has a profile should not be able to create a new one.
+            return redirect()->route('users.profile.show', $user);
+        }
 
         return view('users.profiles.create', compact('user'));
     }
@@ -38,6 +44,11 @@ class ProfileController extends Controller
 
         /** @var User $user */
         $user = auth()->user();
+
+        if ( ! is_null($user->profile)) {
+            // The user has a profile should not be able to create a new one.
+            return redirect()->route('users.profile.show', $user);
+        }
 
         $profile = Profile::query()->make($data);
 
