@@ -57,6 +57,15 @@ to start the environment setup (apache, mysql, php and the laravel app)
 
 to install the dependencies
 
+3. run
+
+```bash
+./vessel art migrate
+./vessel art key:generate
+```
+
+4. You are good to go
+
 ## TODO
 
 -   How to install
