@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\Models\User $user
+ */
+?>
 <div class="card">
     <div class="card-header d-flex justify-content-between">
         <div>@lang('My Profile')</div>
@@ -15,5 +20,6 @@
 
         <p><strong>Gender: </strong>{{ $user->profile->gender }}</p>
         <p><strong>Birth Date: </strong>{{ $user->profile->birth_date->toDateString() }}</p>
+        <p><strong>Public Profile: </strong>{{ $user->profile->is_public ? __('Yes') : 'No' }}</p>
     </div>
 </div>

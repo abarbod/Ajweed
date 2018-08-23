@@ -20,6 +20,7 @@ class CreateProfilesTable extends Migration
             $table->date('birth_date');
 
             $table->enum('gender', ['male', 'female']);
+            $table->boolean('is_public')->default(false);
 
             $table->foreign('user_id')
                   ->references('id')->on('users')

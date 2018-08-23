@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property User   $user
- * @property string $gender
- * @property Carbon $birth_date
+ * @property int     $id
+ * @property User    $user
+ * @property string  $gender
+ * @property Carbon  $birth_date
+ * @property boolean $is_public
  */
 class Profile extends Model
 {
@@ -21,6 +23,7 @@ class Profile extends Model
     protected $fillable = [
         'gender',
         'birth_date',
+        'is_public',
     ];
 
     /**
@@ -30,6 +33,15 @@ class Profile extends Model
      */
     protected $dates = [
         'birth_date',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_public' => 'boolean',
     ];
 
 

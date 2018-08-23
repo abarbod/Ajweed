@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class ProfileController extends Controller
 {
@@ -37,9 +39,11 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'gender'     => ['required', 'in:male,female'],
             'birth_date' => ['required', 'date', 'before:13 years ago'],
+            'is_public'  => 'boolean',
         ]);
 
         /** @var User $user */
@@ -68,7 +72,15 @@ class ProfileController extends Controller
     {
         $profile = $user->profile;
 
-        return view('users.profiles.show', compact('user', 'profile'));
+        if (is_null($profile)) {
+            abort(404);
+        }
+
+        if ($profile->is_public || auth()->id() === $profile->id) {
+            return view('users.profiles.show', compact('user', 'profile'));
+        }
+
+        throw new UnauthorizedException('This action is unauthorized.');
     }
 
     /**
@@ -110,7 +122,11 @@ class ProfileController extends Controller
         $data = $request->validate([
             'gender'     => ['required', 'in:male,female'],
             'birth_date' => ['required', 'date', 'before:13 years ago'],
+            'is_public'  => 'boolean',
         ]);
+
+        // Unchecked checkbox does not send any value (key does no exist in the request), we assign false.
+        $data['is_public'] = $data['is_public'] ?? false;
 
         $this->authorize('update', $profile);
 
