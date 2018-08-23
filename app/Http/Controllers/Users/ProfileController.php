@@ -22,7 +22,7 @@ class ProfileController extends Controller
 
         if ( ! is_null($user->profile)) {
             // The user has a profile should not be able to create a new one.
-            return redirect()->route('users.profile.show', $user);
+            return redirect()->route('users.account.index');
         }
 
         return view('users.profiles.create', compact('user'));
@@ -47,7 +47,7 @@ class ProfileController extends Controller
 
         if ( ! is_null($user->profile)) {
             // The user has a profile should not be able to create a new one.
-            return redirect()->route('users.profile.show', $user);
+            return redirect()->route('users.account.index');
         }
 
         $profile = Profile::query()->make($data);
