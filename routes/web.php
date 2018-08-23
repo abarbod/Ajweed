@@ -10,6 +10,10 @@ $router->get('/', function () {
 
 $router->get('/home', 'HomeController@index')->name('home');
 
+$router->get('/account', 'Users\AccountController@index')
+    ->middleware(['auth'])
+    ->name('users.account.index');
+
 // Profile routes. (We use the user routeKey, {user} = routeKey)
 $router->get('profile/{user}/edit', 'Users\ProfileController@edit')
        ->name('users.profile.edit')

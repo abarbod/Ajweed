@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    /**
+     * Whether the user has a complete his profile or not.
+     *
+     * @return bool
+     */
+    public function hasCompleteProfile()
+    {
+        return optional($this->profile)->isComplete();
+    }
 }

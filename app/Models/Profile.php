@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property User $user
+ * @property User   $user
  * @property string $gender
  * @property Carbon $birth_date
  */
@@ -41,5 +41,16 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Is the profile complete? Depending on Ajaweed requirements.
+     * Only users with complete profile are allowed to participate in events.
+     *
+     * @return bool
+     */
+    public function isComplete()
+    {
+        return true;
     }
 }

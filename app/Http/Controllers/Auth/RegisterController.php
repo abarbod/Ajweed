@@ -70,6 +70,16 @@ class RegisterController extends Controller
     }
 
     /**
+     * After registration, redirect to create a new profile.
+     *
+     * @return string
+     */
+    public function redirectTo()
+    {
+        return route('users.profile.create');
+    }
+
+    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data

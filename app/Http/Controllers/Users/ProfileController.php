@@ -54,7 +54,7 @@ class ProfileController extends Controller
 
         $user->profile()->save($profile);
 
-        return redirect()->route('users.profile.show', $user);
+        return redirect()->route('users.account.index');
     }
 
     /**
