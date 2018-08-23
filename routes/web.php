@@ -8,8 +8,6 @@ $router->get('/', function () {
 
 \Illuminate\Support\Facades\Auth::routes();
 
-$router->get('/home', 'HomeController@index')->name('home');
-
 $router->get('/account', 'Users\AccountController@index')
     ->middleware(['auth'])
     ->name('users.account.index');
