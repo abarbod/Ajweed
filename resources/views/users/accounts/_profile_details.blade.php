@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between">
         <div>@lang('My Profile')</div>
-        <a href="{{ route('users.profile.edit', $user) }}">@lang('Edit')</a>
+        <a href="{{ route('users.profile.edit') }}">@lang('Edit')</a>
     </div>
 
     <div class="card-body">

@@ -15,7 +15,7 @@ $router->get('/account', 'Users\AccountController@index')
     ->name('users.account.index');
 
 // Profile routes. (We use the user routeKey, {user} = routeKey)
-$router->get('profile/{user}/edit', 'Users\ProfileController@edit')
+$router->get('profile/edit', 'Users\ProfileController@edit')
        ->name('users.profile.edit')
        ->middleware('auth');
 
@@ -27,10 +27,11 @@ $router->get('profile/create', 'Users\ProfileController@create')
        ->name('users.profile.create')
        ->middleware('auth');
 
-$router->get('profile/{user}', 'Users\ProfileController@show')
-       ->name('users.profile.show')
+$router->put('profile/{profile}', 'Users\ProfileController@update')
+       ->name('users.profile.update')
        ->middleware('auth');
 
-$router->put('profile/{user}', 'Users\ProfileController@update')
-       ->name('users.profile.update')
+// This route will be for public profile page?
+$router->get('profile/{user}', 'Users\ProfileController@show')
+       ->name('users.profile.show')
        ->middleware('auth');

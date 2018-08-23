@@ -74,13 +74,23 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param User $user
-     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
-        return view('users.profiles.edit');
+        /** @var User $user */
+        $user = auth()->user();
+
+        $profile = $user->profile;
+
+        if (is_null($profile)) {
+            // The user does not have a profile yet.
+            // User creates a profile after registration,
+            // but if he skips the step we redirect him to create a new profile.
+            return redirect()->route('users.profile.create');
+        }
+
+        return view('users.profiles.edit', compact('user', 'profile'));
     }
 
     /**
@@ -93,7 +103,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $data = $request->validate([
+            'gender'     => ['required', 'in:male,female'],
+            'birth_date' => ['required', 'date', 'before:13 years ago'],
+        ]);
+
+        $profile->update($data);
+
+        return redirect()->route('users.account.index');
     }
 
     /**

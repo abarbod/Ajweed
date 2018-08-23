@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <a class="btn btn-info float-right" href="{{ route('users.profile.edit', $user) }}">@lang('Edit')</a>
+                        <a class="btn btn-info float-right" href="{{ route('users.profile.edit') }}">@lang('Edit')</a>
                     </div>
                 </div>
             </div>
