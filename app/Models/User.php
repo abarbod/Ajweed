@@ -60,4 +60,27 @@ class User extends Authenticatable
     {
         return optional($this->profile)->isComplete();
     }
+
+
+    /**
+     * The user avatar
+     *
+     * @param int $size , in pixels, of the image returned by gravatar (anywhere from 1px up to 2048px).
+     *
+     * @link https://en.gravatar.com/site/implement/images/
+     *
+     * @return string
+     */
+    public function avatar($size = 45)
+    {
+        $default = 'mm';
+
+        return sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s',
+            md5(strtolower(trim($this->email))),
+            $default,
+            $size
+        );
+    }
+
+
 }
