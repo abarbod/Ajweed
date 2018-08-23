@@ -75,6 +75,7 @@ class ProfileController extends Controller
      * Show the form for editing the specified resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit()
     {
@@ -90,6 +91,8 @@ class ProfileController extends Controller
             return redirect()->route('users.profile.create');
         }
 
+        $this->authorize('update', $profile);
+
         return view('users.profiles.edit', compact('user', 'profile'));
     }
 
@@ -100,6 +103,7 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile      $profile
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Profile $profile)
     {
@@ -107,6 +111,8 @@ class ProfileController extends Controller
             'gender'     => ['required', 'in:male,female'],
             'birth_date' => ['required', 'date', 'before:13 years ago'],
         ]);
+
+        $this->authorize('update', $profile);
 
         $profile->update($data);
 
