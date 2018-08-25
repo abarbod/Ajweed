@@ -49,11 +49,11 @@ class RegisterController extends Controller
                 'required',
                 'digits:10',
                 'unique:users',
-                function ($attribute, $value, $fail) {
-                    if ( ! in_array($this->check_official_id($value), [1, 2])) {
-                        return $fail(__('The Saudi Id / Iqama Id is not valid.'));
-                    }
-                },
+//                function ($attribute, $value, $fail) {
+//                    if ( ! in_array($this->check_official_id($value), [1, 2])) {
+//                        return $fail(__('The Saudi Id / Iqama Id is not valid.'));
+//                    }
+//                },
             ],
             'mobile' => ['required', 'unique:users', 'regex:/^05\d{8}$/'],
         ],
