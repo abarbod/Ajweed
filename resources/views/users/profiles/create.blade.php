@@ -18,6 +18,7 @@
                               aria-label="{{ __('Update Profile') }}">
                             @csrf
 
+                            <!-- Gender -->
                             <div class="form-group row">
                                 <label for="gender"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
@@ -50,6 +51,7 @@
                                 </div>
                             </div>
 
+                            <!-- Birth Date -->
                             <div class="form-group row">
                                 <label for="birth_date"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Birth Date') }}</label>
@@ -68,6 +70,7 @@
                                 </div>
                             </div>
 
+                            <!-- Public Profile -->
                             <div class="form-group row">
                                 <label for="is_public"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Public Profile') }}</label>
