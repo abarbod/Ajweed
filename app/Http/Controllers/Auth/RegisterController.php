@@ -114,7 +114,7 @@ class RegisterController extends Controller
 
 
     }
-s
+
     /**
      * After registration, redirect to create a new profile.
      *
