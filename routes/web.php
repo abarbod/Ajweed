@@ -32,3 +32,7 @@ $router->put('profile/{profile}', 'Users\ProfileController@update')
 // This route for public profile page
 $router->get('profile/{user}', 'Users\ProfileController@show')
        ->name('users.profile.show');
+
+
+// Events routes
+$router->get('events', 'EventController@index')->name('events.index');
