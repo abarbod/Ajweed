@@ -39,6 +39,18 @@ class Event extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'start_at' => 'date:Y-m-d',
+        'end_at' => 'date:Y-m-d',
+        'start_time' => 'date:H:m a',
+        'end_time' => 'date:H:m a',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
