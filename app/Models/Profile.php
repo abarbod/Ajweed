@@ -5,6 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+
+
 /**
  * @property int     $id
  * @property User    $user
@@ -34,6 +36,13 @@ class Profile extends Model
     protected $dates = [
         'birth_date',
     ];
+
+    /**
+     * The database primary key value.
+     *
+     * @var string
+     */
+    protected $guarded = ['user_id', '_token'];
 
     /**
      * The attributes that should be cast to native types.

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\Models\User;
+use App\Models\Profile;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+
+
 
 class RegisterController extends Controller
 {
@@ -31,6 +35,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
     }
 
     /**
@@ -54,8 +59,12 @@ class RegisterController extends Controller
 //                        return $fail(__('The Saudi Id / Iqama Id is not valid.'));
 //                    }
 //                },
+
             ],
-            'mobile' => ['required', 'unique:users', 'regex:/^05\d{8}$/'],
+            'mobile' => 'required|unique:users|regex:/^05\d{8}$/',
+            'gender'     => 'required',
+            'birth_date' => 'required|date|before:13 years ago',
+            'is_public'  => 'boolean',
         ],
             [
                 'mobile.regex' => 'Mobile number must be 10 digits and start with 05',
@@ -67,10 +76,10 @@ class RegisterController extends Controller
      *
      * @return string
      */
-    public function redirectTo()
-    {
-        return route('users.profile.create');
-    }
+//    public function redirectTo()
+//    {
+//        return route('users.profile.show', compact('user', 'profile'));
+//    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -80,14 +89,42 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'official_id' => $data['official_id'],
-            'mobile' => $data['mobile'],
-        ]);
+
+
+        $user = new User();
+        $user-> name = $data['name'];
+        $user-> email = $data['email'];
+        $user-> password =  bcrypt($data['password']);
+        $user-> official_id = $data['official_id'];
+        $user-> mobile = $data['mobile'];
+        $user->save();
+
+
+
+
+        $Profile = new Profile();
+        $Profile->user_id = $user->id;
+        $Profile->gender = $data['gender'];
+        $Profile->birth_date = $data['birth_date'];
+        $Profile->is_public = $data['is_public'];
+        $Profile->save();
+        return $user;
+
+
+
     }
+
+    /**
+     * After registration, redirect to create a new profile.
+     *
+     * @return string
+     */
+    public function redirectTo()
+    {
+        return route('users.account.index');
+    }
+
+
 
     /**
      * Validate a Saudi / Iqama Id.
