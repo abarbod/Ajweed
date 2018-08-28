@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property User    $user
  * @property string  $gender
  * @property Carbon  $birth_date
- * @property boolean $is_public
  */
 class Profile extends Model
 {
@@ -25,7 +24,6 @@ class Profile extends Model
     protected $fillable = [
         'gender',
         'birth_date',
-        'is_public',
     ];
 
     /**
@@ -43,16 +41,6 @@ class Profile extends Model
      * @var string
      */
     protected $guarded = ['user_id', '_token'];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_public' => 'boolean',
-    ];
-
 
     /**
      * Relationship: A profile belong to a user.

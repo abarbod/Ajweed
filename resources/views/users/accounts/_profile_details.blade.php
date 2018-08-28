@@ -20,6 +20,5 @@
 
         <p><strong>Gender: </strong>{{ $user->profile->gender }}</p>
         <p><strong>Birth Date: </strong>{{ $user->profile->birth_date->toDateString() }}</p>
-        <p><strong>Public Profile: </strong>{{ $user->profile->is_public ? __('Yes') : 'No' }}</p>
     </div>
 </div>
