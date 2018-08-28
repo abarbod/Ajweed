@@ -29,7 +29,7 @@
                                 <tbody>
                                 @foreach($events as $event)
                                     <tr>
-                                        <td scope="row"><a href="/">{{ $event->name }}</a></td>
+                                        <td scope="row"><a href="{{ route('events.show', $event) }}">{{ $event->name }}</a></td>
                                         <td>{{ $event->start_at->toDateString() }}</td>
                                     </tr>
                                 @endforeach

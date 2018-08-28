@@ -46,8 +46,6 @@ class Event extends Model
     protected $casts = [
         'start_at' => 'date:Y-m-d',
         'end_at' => 'date:Y-m-d',
-        'start_time' => 'date:H:m a',
-        'end_time' => 'date:H:m a',
     ];
 
     /**
