@@ -69,10 +69,10 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/account') }}">Account</a>
+                        <a href="{{ url('/account') }}">@lang('Account')</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">@lang('Login')</a>
+                        <a href="{{ route('register') }}">@lang('Register')</a>
                     @endauth
                 </div>
             @endif

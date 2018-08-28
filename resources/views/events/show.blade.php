@@ -15,12 +15,12 @@
                     <div class="card-header">{{ $event->name }}</div>
 
                     <div class="card-body">
-                        <p><strong>@lang('Description:') </strong>{{ $event->description }}</p>
+                        <p><strong>@lang('Description'): </strong>{{ $event->description }}</p>
                         <dl class="row">
                             <dt class="col-sm-3">@lang('Location')</dt>
                             <dd class="col-sm-9">{{ $event->location }}</dd>
 
-                            <dt class="col-sm-3">Date</dt>
+                            <dt class="col-sm-3">@lang('Date')</dt>
                             <dd class="col-sm-9">
                                 <p>{{ $event->start_at->toDateString() }} - {{ $event->end_at->toDateString() }}</p>
                             </dd>
@@ -49,7 +49,7 @@
                                 </dl>
                             </dd>
                             <dt class="col-sm-3">@lang('Registration Status')</dt>
-                            <dd class="col-sm-9">{{ $event->registration_status }}
+                            <dd class="col-sm-9">@lang($event->registration_status)
                             </dd>
 
                             @if($event->registration_status === 'open')
@@ -63,7 +63,7 @@
                                 <dt class="col-sm-3">@lang('Date Published')</dt>
                                 <dd class="col-sm-9">{{ $event->published_at->toDateString() }}</dd>
                             @else
-                                <dt class="col-sm-3 text-danger">This event is not published.</dt>
+                                <dt class="col-sm-3 text-danger">@lang('This event is not published.')</dt>
                             @endunless
 
                         </dl>

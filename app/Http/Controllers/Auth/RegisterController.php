@@ -62,10 +62,7 @@ class RegisterController extends Controller
             'mobile'      => 'required|unique:users|regex:/^05\d{8}$/',
             'gender'      => 'required',
             'birth_date'  => 'required|date|before:13 years ago',
-        ],
-            [
-                'mobile.regex' => 'Mobile number must be 10 digits and start with 05',
-            ]);
+        ]);
     }
 
     /**

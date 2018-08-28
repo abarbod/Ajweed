@@ -128,6 +128,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'mobile'         => [
+            'regex' => 'Mobile number must be 10 digits and start with 05',
+        ],
+        'birth_date'     => [
+            'before' => 'Minimum age for registration is 13 years.',
+        ],
     ],
 
     /*
