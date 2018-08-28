@@ -69,7 +69,7 @@
                                     </span>
                                 @else
                                     <span class="form-text text-muted">
-                                        <strong>Example: 05xxxxxxxx</strong>
+                                        <strong>@lang('Example:') 05xxxxxxxx</strong>
                                     </span>
                                 @endif
                             </div>

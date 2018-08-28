@@ -18,7 +18,7 @@
 
             <img class="rounded float-right" src="{{ $user->avatar('100') }}" alt="{{ $user->name }}">
 
-        <p><strong>Gender: </strong>{{ $user->profile->gender }}</p>
-        <p><strong>Birth Date: </strong>{{ $user->profile->birth_date->toDateString() }}</p>
+        <p><strong>@lang('Gender'): </strong>{{ __(ucfirst($user->profile->gender)) }}</p>
+        <p><strong>@lang('Birth Date'): </strong>{{ $user->profile->birth_date->toDateString() }}</p>
     </div>
 </div>
