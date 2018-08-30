@@ -69,7 +69,7 @@
                                     </span>
                                 @else
                                     <span class="form-text text-muted">
-                                        <strong>Example: 05xxxxxxxx</strong>
+                                        <strong>@lang('Example:') 05xxxxxxxx</strong>
                                     </span>
                                 @endif
                             </div>
@@ -137,34 +137,6 @@
                                 @if ($errors->has('birth_date'))
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('birth_date') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Public Profile -->
-                        <div class="form-group row">
-                            <label for="is_public"
-                                   class="col-md-4 col-form-label text-md-right">{{ __('Public Profile') }}</label>
-
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                    <input
-                                            class="form-check-input{{ $errors->has('is_public') ? ' is-invalid' : '' }}"
-                                            type="checkbox" name="is_public"
-                                            {{ old('is_public') ? 'checked': '' }}
-                                            id="isPublic" value="1">
-                                    <label class="form-check-label" for="isPublic">
-                                        @lang('Make my profile public.')
-                                    </label>
-                                    <span class="form-text text-muted">
-                                        <strong>@lang('Your profile page will be accessible to the public and shows basic details about you.')</strong>
-                                    </span>
-                                </div>
-
-                                @if ($errors->has('is_public'))
-                                    <span class="d-block invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('is_public') }}</strong>
                                 </span>
                                 @endif
                             </div>

@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use App\Models\User;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
-
-
 
 class RegisterController extends Controller
 {
@@ -41,15 +38,16 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'name'        => 'required|string|max:255',
+            'email'       => 'required|string|email|max:255|unique:users',
+            'password'    => 'required|string|min:6',
             'official_id' => [
                 'required',
                 'digits:10',
@@ -61,57 +59,10 @@ class RegisterController extends Controller
 //                },
 
             ],
-            'mobile' => 'required|unique:users|regex:/^05\d{8}$/',
-            'gender'     => 'required',
-            'birth_date' => 'required|date|before:13 years ago',
-            'is_public'  => 'boolean',
-        ],
-            [
-                'mobile.regex' => 'Mobile number must be 10 digits and start with 05',
-            ]);
-    }
-
-    /**
-     * After registration, redirect to create a new profile.
-     *
-     * @return string
-     */
-//    public function redirectTo()
-//    {
-//        return route('users.profile.show', compact('user', 'profile'));
-//    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-
-
-        $user = new User();
-        $user-> name = $data['name'];
-        $user-> email = $data['email'];
-        $user-> password =  bcrypt($data['password']);
-        $user-> official_id = $data['official_id'];
-        $user-> mobile = $data['mobile'];
-        $user->save();
-
-
-
-
-        $Profile = new Profile();
-        $Profile->user_id = $user->id;
-        $Profile->gender = $data['gender'];
-        $Profile->birth_date = $data['birth_date'];
-        $Profile->is_public = $data['is_public'];
-        $Profile->save();
-        return $user;
-
-
-
+            'mobile'      => 'required|unique:users|regex:/^05\d{8}$/',
+            'gender'      => 'required',
+            'birth_date'  => 'required|date|before:13 years ago',
+        ]);
     }
 
     /**
@@ -124,7 +75,29 @@ class RegisterController extends Controller
         return route('users.account.index');
     }
 
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array $data
+     *
+     * @return \App\Models\User
+     */
+    protected function create(array $data)
+    {
+        /** @var User $user */
+        $user = User::create([
+            'name'        => $data['name'],
+            'email'       => $data['email'],
+            'password'    => Hash::make($data['password']),
+            'official_id' => $data['official_id'],
+            'mobile'      => $data['mobile'],
+        ]);
 
+        $profile = Profile::query()->make($data);
+        $user->profile()->save($profile);
+
+        return $user;
+    }
 
     /**
      * Validate a Saudi / Iqama Id.

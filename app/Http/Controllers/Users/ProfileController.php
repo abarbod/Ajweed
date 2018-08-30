@@ -43,7 +43,6 @@ class ProfileController extends Controller
         $data = $request->validate([
             'gender'     => ['required', 'in:male,female'],
             'birth_date' => ['required', 'date', 'before:13 years ago'],
-            'is_public'  => 'boolean',
         ]);
 
         /** @var User $user */
@@ -76,7 +75,7 @@ class ProfileController extends Controller
             abort(404);
         }
 
-        if ($profile->is_public || auth()->id() === $profile->id) {
+        if (auth()->id() === $profile->id) {
             return view('users.profiles.show', compact('user', 'profile'));
         }
 
@@ -122,11 +121,7 @@ class ProfileController extends Controller
         $data = $request->validate([
             'gender'     => ['required', 'in:male,female'],
             'birth_date' => ['required', 'date', 'before:13 years ago'],
-            'is_public'  => 'boolean',
         ]);
-
-        // Unchecked checkbox does not send any value (key does no exist in the request), we assign false.
-        $data['is_public'] = $data['is_public'] ?? false;
 
         $this->authorize('update', $profile);
 
