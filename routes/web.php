@@ -35,7 +35,6 @@ $router->put('profile/{profile}', 'Users\ProfileController@update')
 $router->get('profile/{user}', 'Users\ProfileController@show')
        ->name('users.profile.show');
 
-//$router->post('auth/register', 'Auth\RegisterController@create');
 // Events routes
 $router->get('events', 'EventController@index')->name('events.index');
 $router->get('events/{event}', 'EventController@show')->name('events.show');
