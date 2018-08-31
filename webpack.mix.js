@@ -19,5 +19,7 @@ mix.sass('resources/assets/sass/app-rtl.scss', 'public/css')
     .then(() => {
         exec('node_modules/rtlcss/bin/rtlcss.js public/css/app-rtl.css ./public/css/app-rtl.css');
     })
+    .then(() => {
+        exec('node_modules/rtlcss/bin/rtlcss.js ./public/nova-assets/app.css ./public/nova-assets/app-rtl.css');
+    })
     .version(['public/css/app-rtl.css']);
-;
