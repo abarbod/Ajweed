@@ -91,5 +91,15 @@ class User extends Authenticatable
         );
     }
 
+    /**
+     * Whether this user as an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->email === 'admin@example.com';
+    }
+
 
 }

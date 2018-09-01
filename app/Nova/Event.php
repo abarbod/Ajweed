@@ -2,28 +2,31 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Place;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Textarea;
 
-class User extends Resource
+class Event extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\User';
+    public static $model = 'App\Models\Event';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -32,8 +35,6 @@ class User extends Resource
      */
     public static $search = [
         'id',
-        'name',
-        'email',
     ];
 
     /**
@@ -48,35 +49,46 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(__('Avatar')),
+            Text::make(__('Name'), 'name'),
 
-            Text::make(__('Name'), 'name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Textarea::make(__('Description'), 'description')
+                    ->hideFromIndex(),
 
-            Text::make(__('E-Mail Address'), 'email')
-                ->sortable()
-                ->rules('required', 'email', 'max:255')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+            Place::make(__('Location'), 'location'),
 
-            Password::make(__('Password'), 'password')
-                    ->onlyOnForms()
-                    ->creationRules('required', 'string', 'min:6')
-                    ->updateRules('nullable', 'string', 'min:6'),
+            Date::make(__('Start Date'), 'start_at'),
 
-            Text::make(__('Saudi Id / Iqama Id'), 'official_id')
-                ->hideFromIndex()
-                ->rules(['required', 'digits:10',])
-                ->creationRules(['unique:users'])
-                ->updateRules(['unique:users,official_id,{{resourceId}}']),
+            Date::make(__('End Date'), 'end_at'),
 
-            Text::make(__('Mobile Number'), 'mobile')
-                ->rules(['required', 'regex:/^05\d{8}$/'])
-                ->creationRules('unique:users')
-                ->updateRules(['unique:users,mobile,{{resourceId}}']),
+            Text::make(__('Start Time'), 'start_time')
+                ->hideFromIndex(),
 
-            HasOne::make(__('Profile'), 'profile', Profile::class),
+            Text::make(__('End Time'), 'end_time')
+                ->hideFromIndex(),
+
+            Text::make(__('Rewards'), 'rewards')
+                ->hideFromIndex(),
+
+            Number::make(__('Count Male'), 'count_male')->min(0)
+                  ->hideFromIndex(),
+
+            Number::make(__('Count Female'), 'count_female')->min(0)
+                  ->hideFromIndex(),
+
+            Select::make(__('Registration Status'), 'registration_status')
+                  ->options([
+                      'open'   => __('open'),
+                      'closed' => __('closed'),
+                  ])->displayUsingLabels(),
+
+            Boolean::make(__('Is Published'), 'published_at')
+                   ->fillUsing(function (Request $request, \App\Models\Event $event) {
+                       if ($request->input('published_at')) {
+                           $event->published_at = now();
+                       } else {
+                           $event->published_at = null;
+                       }
+                   }),
 
         ];
     }
@@ -129,6 +141,7 @@ class User extends Resource
         return [];
     }
 
+
     /**
      * Get the displayble label of the resource.
      *
@@ -136,7 +149,7 @@ class User extends Resource
      */
     public static function label()
     {
-        return __('Users');
+        return __('Events');
     }
 
     /**
@@ -146,7 +159,7 @@ class User extends Resource
      */
     public static function singularLabel()
     {
-        return __('User');
+        return __('Event');
     }
 
 }
