@@ -15,6 +15,22 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('event_id');
+
+            $table->enum('status', ['processing', 'on-hold', 'rejected', 'accepted'])
+                  ->default('processing');
+
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+            $table->foreign('event_id')
+                  ->references('id')->on('events')
+                  ->onDelete('cascade');
+
+            $table->unique(['user_id', 'event_id']);
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
