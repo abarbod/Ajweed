@@ -72,6 +72,7 @@ class Event extends Model
         return $this->belongsToMany(User::class, 'applications')
                     ->using(Application::class)
                     ->as('application')
+                    ->withTimestamps()
                     ->withPivot(['status']);
     }
 

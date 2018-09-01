@@ -73,6 +73,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Event::class, 'applications')
                     ->using(Application::class)
                     ->as('application')
+                    ->withTimestamps()
                     ->withPivot(['status']);
     }
 
