@@ -1,7 +1,6 @@
 <?php
 
 
-
 /** @var \Illuminate\Routing\Router $router */
 
 $router->get('/', function () {
@@ -38,3 +37,14 @@ $router->get('profile/{user}', 'Users\ProfileController@show')
 // Events routes
 $router->get('events', 'EventController@index')->name('events.index');
 $router->get('events/{event}', 'EventController@show')->name('events.show');
+
+// Events applications routes
+$router->group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $router) {
+
+    $router->post('events/{event}/applications', 'Events\EventApplicationController@store')
+           ->name('events.applications.store');
+
+    $router->delete('events/{event}/applications', 'Events\EventApplicationController@destroy')
+           ->name('events.applications.destroy');
+
+});
