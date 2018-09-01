@@ -17,6 +17,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string  $official_id
  * @property string  $mobile
  * @property Profile $profile
+ * @property \Illuminate\Support\Collection|\App\Models\Event[] $pendingEvents
+ * @property \Illuminate\Support\Collection|\App\Models\Application[] $applications
  */
 class User extends Authenticatable
 {
@@ -57,6 +59,31 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Relationship: A user can have many pending events.
+     * These events will be associated with the user using the Application model.
+     * When a user applies to an event we create an Application to hold the status and decision of the application.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pendingEvents()
+    {
+        return $this->belongsToMany(Event::class, 'applications')
+                    ->using(Application::class)
+                    ->as('application')
+                    ->withPivot(['status']);
+    }
+
+    /**
+     * Relationship: A user can have many applications.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
     }
 
     /**

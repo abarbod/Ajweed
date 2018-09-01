@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                        $count_male
  * @property int                        $count_female
  * @property string                     $registration_status
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $applicants
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Application[] $applications
  * @property \Carbon\Carbon             $published_at
  * @property \Carbon\Carbon             $updated_at
  */
@@ -58,5 +60,29 @@ class Event extends Model
         'end_at',
         'published_at',
     ];
+
+    /**
+     * Relationship: An event can have many applicants (Users).
+     * The link is the pivot table applications represented by an Application Model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function applicants()
+    {
+        return $this->belongsToMany(User::class, 'applications')
+                    ->using(Application::class)
+                    ->as('application')
+                    ->withPivot(['status']);
+    }
+
+    /**
+     * Relationship: An event can have many applications.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
 
 }
