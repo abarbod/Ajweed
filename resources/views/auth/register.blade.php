@@ -53,7 +53,7 @@
 
                         <!-- First Name -->
                         <div class="form-group row">
-                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('first name') }}</label>
+                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="first_name" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" required autofocus>
@@ -66,31 +66,31 @@
                             </div>
                         </div>
 
-                        <!-- Second Name -->
+                        <!-- Father Name -->
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Second name') }}</label>
+                            <label for="father_name" class="col-md-4 col-form-label text-md-right">{{ __('Father Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="second_name" type="text" class="form-control{{ $errors->has('second_name') ? ' is-invalid' : '' }}" name="second_name" value="{{ old('second_name') }}" required autofocus>
+                                <input id="father_name" type="text" class="form-control{{ $errors->has('father_name') ? ' is-invalid' : '' }}" name="father_name" value="{{ old('father_name') }}" required autofocus>
 
-                                @if ($errors->has('second_name'))
+                                @if ($errors->has('father_name'))
                                     <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('second_name') }}</strong>
+                                    <strong>{{ $errors->first('father_name') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
 
-                        <!-- Third Name -->
+                        <!-- Grandfather Name -->
                         <div class="form-group row">
-                            <label for="third_name" class="col-md-4 col-form-label text-md-right">{{ __('Third name') }}</label>
+                            <label for="grandfather_name" class="col-md-4 col-form-label text-md-right">{{ __('Grandfather Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="third_name" type="text" class="form-control{{ $errors->has('third_name') ? ' is-invalid' : '' }}" name="third_name" value="{{ old('third_name') }}" required autofocus>
+                                <input id="grandfather_name" type="text" class="form-control{{ $errors->has('grandfather_name') ? ' is-invalid' : '' }}" name="grandfather_name" value="{{ old('grandfather_name') }}" required autofocus>
 
-                                @if ($errors->has('third_name'))
+                                @if ($errors->has('grandfather_name'))
                                     <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('third_name') }}</strong>
+                                <strong>{{ $errors->first('grandfather_name') }}</strong>
                             </span>
                                 @endif
                             </div>
@@ -98,7 +98,7 @@
 
                         <!-- Last Name -->
                         <div class="form-group row">
-                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last name') }}</label>
+                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="last_name" type="text" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" required autofocus>

@@ -12,11 +12,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        $attributes = [
+            'email'    => 'admin@example.com',
+            'username' => 'admin',
+        ];
+
         // Create an admin user for development purposes.
-        \App\Models\User::query()->updateOrCreate(['email' => 'admin@example.com'],
-            factory(\App\Models\User::class)->raw([
-                'email' => 'admin@example.com',
-            ]));
+        \App\Models\User::query()->updateOrCreate($attributes,
+            factory(\App\Models\User::class)->raw($attributes));
 
         $this->call(EventsTableSeeder::class);
     }

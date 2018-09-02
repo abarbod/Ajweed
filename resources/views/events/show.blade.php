@@ -53,10 +53,32 @@
                             </dd>
 
                             @if($event->registration_status === 'open')
-                                <div class="col-12 mb-2">
-                                    <a href="#" class="btn btn-outline-success"
-                                       onclick="alert('Not yet');return false">@lang('Apply')</a>
-                                </div>
+                                @if(auth()->check() && $event->applicants()->where('user_id', auth()->id())->exists())
+                                    <div class="col-12 mb-2">
+                                        <a href="#" class="btn btn-outline-danger"
+                                           onclick="event.preventDefault(); document.getElementById('events-cancel-application-form').submit()">
+                                            @lang('Cancel your application')
+                                        </a>
+                                    </div>
+                                    <form id="events-cancel-application-form"
+                                          action="{{ route('events.applications.destroy', $event) }}"
+                                          method="POST" style="display: none;">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                @else
+                                    <div class="col-12 mb-2">
+                                        <a href="#" class="btn btn-outline-success"
+                                           onclick="event.preventDefault(); document.getElementById('events-apply-form').submit()">
+                                            @lang('Apply')
+                                        </a>
+                                    </div>
+                                    <form id="events-apply-form"
+                                          action="{{ route('events.applications.store', $event) }}"
+                                          method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                @endif
                             @endif
 
                             @unless(is_null($event->published_at))
