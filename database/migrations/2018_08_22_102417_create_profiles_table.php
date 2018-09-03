@@ -27,8 +27,6 @@ class CreateProfilesTable extends Migration
             $table->string('experiences', 500);
             $table->string('city', 30);
 
-
-
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
