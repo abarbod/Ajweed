@@ -24,6 +24,12 @@ class Profile extends Model
     protected $fillable = [
         'gender',
         'birth_date',
+        'prefered_times',
+        'skills',
+        'twitter',
+        'instegram',
+        'experiences',
+        'city',
     ];
 
     /**

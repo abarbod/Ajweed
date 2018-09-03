@@ -37,6 +37,8 @@ $router->get('profile/{user}', 'Users\ProfileController@show')
 // Events routes
 $router->get('events', 'EventController@index')->name('events.index');
 $router->get('events/{event}', 'EventController@show')->name('events.show');
+$router->post('auth/register', 'Auth\RegisterController@update_avatar');
+
 
 // Events applications routes
 $router->group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $router) {
