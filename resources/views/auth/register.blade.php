@@ -79,13 +79,12 @@ $languagesList = [
                         <form method="POST"
                               action="{{ route('register') }}"
                               aria-label="@lang('Register')"
-                              novalidate
                               enctype="multipart/form-data">
                         @csrf
                         <!-- Username -->
                             <div class="form-group row">
                                 <label for="username"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Username')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Username')</label>
 
                                 <div class="col-md-6">
                                     <input id="username" type="text"
@@ -103,7 +102,7 @@ $languagesList = [
                             <!-- E-mail -->
                             <div class="form-group row">
                                 <label for="email"
-                                       class="col-md-4 col-form-label text-md-right">@lang('E-Mail Address')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('E-Mail Address')</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -121,7 +120,7 @@ $languagesList = [
                             <!-- Password -->
                             <div class="form-group row">
                                 <label for="password"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Password')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Password')</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -155,7 +154,7 @@ $languagesList = [
                             <!-- First Name -->
                             <div class="form-group row">
                                 <label for="first_name"
-                                       class="col-md-4 col-form-label text-md-right">@lang('First Name')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('First Name')</label>
 
                                 <div class="col-md-6">
                                     <input id="first_name" type="text"
@@ -173,7 +172,7 @@ $languagesList = [
                             <!-- Father Name -->
                             <div class="form-group row">
                                 <label for="father_name"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Father Name')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Father Name')</label>
 
                                 <div class="col-md-6">
                                     <input id="father_name" type="text"
@@ -191,7 +190,7 @@ $languagesList = [
                             <!-- Grandfather Name -->
                             <div class="form-group row">
                                 <label for="grandfather_name"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Grandfather Name')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Grandfather Name')</label>
 
                                 <div class="col-md-6">
                                     <input id="grandfather_name" type="text"
@@ -209,7 +208,7 @@ $languagesList = [
                             <!-- Last Name -->
                             <div class="form-group row">
                                 <label for="last_name"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Last Name')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Last Name')</label>
 
                                 <div class="col-md-6">
                                     <input id="last_name" type="text"
@@ -227,12 +226,12 @@ $languagesList = [
                             <!-- Gender -->
                             <div class="form-group row">
                                 <label for="gender"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Gender')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Gender')</label>
 
                                 <div class="col-md-6">
                                     <div class="form-check">
                                         <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
-                                               type="radio" name="gender"
+                                               type="radio" name="gender" required
                                                {{ old('gender') === 'male' ? 'checked': '' }}
                                                id="maleRadio" value="male">
                                         <label class="form-check-label" for="maleRadio">
@@ -241,7 +240,7 @@ $languagesList = [
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
-                                               type="radio" name="gender"
+                                               type="radio" name="gender" required
                                                {{ old('gender') === 'female' ? 'checked': '' }}
                                                id="femaleRadio" value="female">
                                         <label class="form-check-label" for="femaleRadio">
@@ -260,7 +259,7 @@ $languagesList = [
                             <!-- Mobile Number -->
                             <div class="form-group row">
                                 <label for="mobile"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Mobile Number')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Mobile Number')</label>
 
                                 <div class="col-md-6">
                                     <input id="mobile" type="text"
@@ -282,7 +281,7 @@ $languagesList = [
                             <!-- Saudi Id / Iqama Id -->
                             <div class="form-group row">
                                 <label for="official_id"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Saudi Id / Iqama Id')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Saudi Id / Iqama Id')</label>
 
                                 <div class="col-md-6">
                                     <input id="official_id" type="text"
@@ -300,10 +299,10 @@ $languagesList = [
                             <!-- Birth Date -->
                             <div class="form-group row">
                                 <label for="birth_date"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Birth Date')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Birth Date')</label>
 
                                 <div class="col-md-6">
-                                    <input id="birth_date" type="date"
+                                    <input id="birth_date" type="date" required
                                            class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}"
                                            max="{{ (new \DateTime('-13 years'))->format('Y-m-d') }}"
                                            name="birth_date" value="{{ old('birth_date') }}">
@@ -318,12 +317,12 @@ $languagesList = [
 
                             <!-- City -->
                             <div class="form-group row">
-                                <label for="city" class="col-md-4 col-form-label text-md-right">@lang('City')</label>
+                                <label for="city" class="col-md-4 col-form-label text-md-right required">@lang('City')</label>
 
                                 <div class="col-md-6">
                                     <select
                                         class="form-control form-select required {{ $errors->has('city') ? ' is-invalid' : '' }}"
-                                        id="city" name="city">
+                                        id="city" name="city" required>
                                         <option selected disabled>- اختر -</option>
                                         @foreach($citiesList as $key => $city)
                                             <option
@@ -345,7 +344,7 @@ $languagesList = [
                             <!-- Academic Degree -->
                             <div class="form-group row">
                                 <label for="academic_degree"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Academic Degree')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Academic Degree')</label>
 
                                 <div class="col-md-6">
                                     <select id="academic_degree" name="academic_degree"
@@ -372,13 +371,13 @@ $languagesList = [
                             <!-- occupation -->
                             <div class="form-group row">
                                 <label for="occupation"
-                                       class="col-md-4 col-form-label text-md-right">@lang('occupation')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('occupation')</label>
 
                                 <div class="col-md-6">
                                     <select
                                         class="form-control form-select {{ $errors->has('occupation') ? ' is-invalid' : '' }}"
                                         id="occupation"
-                                        name="occupation">
+                                        name="occupation" required>
                                         <option disabled selected>- اختر -</option>
                                         @foreach($occupations as $key => $occupation)
                                             <option
@@ -401,7 +400,7 @@ $languagesList = [
                             <!-- Preferred Times -->
                             <div class="form-group row">
                                 <label for="preferred_times"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Preferred Times')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Preferred Times')</label>
 
                                 <div class="col-md-6">
                                     @if ($errors->has('preferred_times'))
@@ -462,7 +461,7 @@ $languagesList = [
                                        class="col-md-4 col-form-label text-md-right">@lang('Typing Speed')</label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control form-select required"
+                                    <select class="form-control form-select"
                                             id="typing_speed"
                                             name="typing_speed">
                                         <option disabled selected>- اختر -</option>
@@ -485,7 +484,7 @@ $languagesList = [
                                 <div class="col-md-6">
                                     <input id="twitter" type="text"
                                            class="form-control{{ $errors->has('twitter') ? ' is-invalid' : '' }}"
-                                           name="twitter" value="{{ old('twitter') }}" required>
+                                           name="twitter" value="{{ old('twitter') }}">
 
                                     @if ($errors->has('twitter'))
                                         <span class="invalid-feedback" role="alert">
@@ -534,7 +533,7 @@ $languagesList = [
                             <!-- Languages -->
                             <div class="form-group row">
                                 <label for="languages"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Languages')</label>
+                                       class="col-md-4 col-form-label text-md-right required">@lang('Languages')</label>
 
                                 <div class="col-md-6">
                                     @if ($errors->has('languages'))
