@@ -180,5 +180,13 @@ return [
         'birth_date'            => 'تاريخ الميلاد',
         'father_name'           => 'اسم الأب',
         'grandfather_name'      => 'اسم الجد',
+        'academic_degree'       => 'المؤهل الأكاديمي',
+        'preferred_times'       => 'الوقت المناسب للعمل',
+        'experiences'           => 'الخبرات السابقة',
+        'typing_speed'          => 'سرعة الطباعة',
+        'languages'             => 'اللغات',
+        'occupation'            => 'المهنة',
+        'instagram'             => 'انستقرام',
+        'twitter'               => 'تويتر',
     ],
 ];

@@ -8,8 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Intervention\Image\ImageManager  as Image;
-
+use Intervention\Image\ImageManager as Image;
 
 
 class RegisterController extends Controller
@@ -47,16 +46,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        //dd(request()->all());
         return Validator::make($data, [
-            'username'        => 'required|string|max:255',
-            'first_name'        => 'required|string|max:255',
-            'father_name'      => 'required|string|max:255',
-            'grandfather_name' => 'required|string|max:255',
-            'last_name'        => 'required|string|max:255',
-            'email'       => 'required|string|email|max:255|unique:users',
-            'password'    => 'required|string|min:6',
-            'official_id' => [
+            // User fields validation.
+            'username'         => ['required', 'string', 'min:4', 'max:255', 'unique:users'],
+            'email'            => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'         => ['required', 'string', 'min:6'],
+            'first_name'       => ['required', 'string', 'max:255'],
+            'father_name'      => ['required', 'string', 'max:255'],
+            'grandfather_name' => ['required', 'string', 'max:255'],
+            'last_name'        => ['required', 'string', 'max:255'],
+            'mobile'           => ['required', 'unique:users', 'regex:/^05\d{8}$/'],
+            'avatar'           => ['nullable', 'image', 'dimensions:min_width=100,min_height=100'],
+            'official_id'      => [
                 'required',
                 'digits:10',
                 'unique:users',
@@ -67,16 +68,20 @@ class RegisterController extends Controller
 //                },
 
             ],
-            'mobile'      => 'required|unique:users|regex:/^05\d{8}$/',
-            'gender'      => 'required',
-            'birth_date'  => 'required|date|before:13 years ago',
-            'prefered_times'  => 'required',
-            'skills'  => 'required',
-            'twitter'  => 'nullable|string|max:40',
-            'instegram'  => 'nullable|string|max:40',
-            'experiences'  => 'required|string|max:500',
-            'city'  => 'required|string',
-            //'avatar'  => 'required|string',
+
+            // Profile fields validations
+            'birth_date'       => ['required', 'before_or_equal:13 years ago'],
+            'gender'           => ['required', 'in:male,female'],
+            'city'             => ['required', 'string', 'max:100'],
+            'academic_degree'  => ['required', 'string', 'max:100'],
+            'occupation'       => ['required', 'string', 'max:100'],
+            'preferred_times'  => ['required', 'array'],
+            'languages'        => ['required', 'array'],
+            'typing_speed'     => ['nullable', 'string', 'max:100'],
+            'skills'           => ['nullable', 'array'],
+            'experiences'      => ['nullable', 'string', 'max:500'],
+            'twitter'          => ['nullable', 'string', 'max:100'],
+            'instagram'        => ['nullable', 'string', 'max:100'],
         ]);
     }
 
@@ -102,26 +107,24 @@ class RegisterController extends Controller
 
         /** @var User $user */
         $user = User::create([
-            'username'    => $data['username'],
-            'first_name'  => $data['first_name'],
-            'father_name' => $data['father_name'],
+            'username'         => $data['username'],
+            'first_name'       => $data['first_name'],
+            'father_name'      => $data['father_name'],
             'grandfather_name' => $data['grandfather_name'],
-            'last_name'   => $data['last_name'],
-            'email'       => $data['email'],
-            'password'    => Hash::make($data['password']),
-            'official_id' => $data['official_id'],
-            'mobile'      => $data['mobile'],
+            'last_name'        => $data['last_name'],
+            'email'            => $data['email'],
+            'password'         => Hash::make($data['password']),
+            'official_id'      => $data['official_id'],
+            'mobile'           => $data['mobile'],
         ]);
 
-
-
-        $data['prefered_times'] = implode(',',$data['prefered_times']);
-        $data['skills'] = implode(',',$data['skills']);
+        $data['preferred_times'] = implode(',', $data['preferred_times']);
+        $data['languages']       = implode(',', $data['languages']);
+        // skills filed is optional, we have to check if it exists in the $data array.
+        $data['skills'] = isset($data['skills']) ? implode(',', $data['skills']) : null;
 
         $profile = Profile::query()->make($data);
         $user->profile()->save($profile);
-
-
 
         return $user;
     }

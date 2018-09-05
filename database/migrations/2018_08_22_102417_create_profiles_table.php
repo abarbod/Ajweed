@@ -18,14 +18,17 @@ class CreateProfilesTable extends Migration
             $table->unsignedInteger('user_id');
 
             $table->date('birth_date');
-
-            $table->enum('gender', ['ذكر', 'أنثى']);
-            $table->string('prefered_times', 30);
-            $table->string('skills', 500);
-            $table->string('twitter', 40)->nullable();
-            $table->string('instegram', 40)->nullable();
-            $table->string('experiences', 500);
-            $table->string('city', 30);
+            $table->enum('gender', ['male', 'female']);
+            $table->string('city', 100);
+            $table->string('academic_degree', 100);
+            $table->string('occupation', 100);
+            $table->string('preferred_times', 100);
+            $table->string('languages', 100);
+            $table->string('typing_speed', 100)->nullable();
+            $table->text('skills')->nullable();
+            $table->text('experiences')->nullable();
+            $table->string('twitter', 100)->nullable();
+            $table->string('instegram', 100)->nullable();
 
             $table->foreign('user_id')
                   ->references('id')->on('users')
