@@ -233,8 +233,8 @@ $languagesList = [
                                     <div class="form-check">
                                         <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
                                                type="radio" name="gender"
-                                               {{ old('gender') === 'ذكر' ? 'checked': '' }}
-                                               id="maleRadio" value="ذكر">
+                                               {{ old('gender') === 'male' ? 'checked': '' }}
+                                               id="maleRadio" value="male">
                                         <label class="form-check-label" for="maleRadio">
                                             @lang('Male')
                                         </label>
@@ -242,8 +242,8 @@ $languagesList = [
                                     <div class="form-check">
                                         <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
                                                type="radio" name="gender"
-                                               {{ old('gender') === 'أنثى' ? 'checked': '' }}
-                                               id="femaleRadio" value="أنثى">
+                                               {{ old('gender') === 'female' ? 'checked': '' }}
+                                               id="femaleRadio" value="female">
                                         <label class="form-check-label" for="femaleRadio">
                                             @lang('Female')
                                         </label>
@@ -398,22 +398,59 @@ $languagesList = [
                                 </div>
                             </div>
 
+                            <!-- Preferred Times -->
+                            <div class="form-group row">
+                                <label for="preferred_times"
+                                       class="col-md-4 col-form-label text-md-right">@lang('Preferred Times')</label>
+
+                                <div class="col-md-6">
+                                    @if ($errors->has('preferred_times'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $errors->first('preferred_times') }}</strong>
+                                        </span>
+                                    @endif
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="checkbox" name="preferred_times[]"
+                                               {{ in_array('morning', old('preferred_times', [])) ? 'checked' : '' }}
+                                               id="preferred_times-morning" value="morning">
+                                        <label class="form-check-label" for="preferred_times-morning">
+                                            @lang('Morning shift')
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="checkbox" name="preferred_times[]"
+                                               {{ in_array('evening', old('preferred_times', [])) ? 'checked' : '' }}
+                                               id="preferred_times-evening" value="evening">
+                                        <label class="form-check-label" for="preferred_times-evening">
+                                            @lang('Evening shift')
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <!-- skills -->
                             <div class="form-group row">
                                 <label for="skills"
                                        class="col-md-4 col-form-label text-md-right">@lang('skills')</label>
 
                                 <div class="col-md-6">
+                                    @if ($errors->has('skills'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $errors->first('skills') }}</strong>
+                                        </span>
+                                    @endif
                                     @foreach($skills as $key => $skill)
                                         <div class="form-check">
                                             <input title="@lang('Skills')"
                                                    class="form-check-input"
                                                    type="checkbox" name="skills[]"
                                                    id="{{ $key }}" value="{{ $key }}"
-                                                {{ in_array($skill, old('skills', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="{{ $key }}">
-                                                {{ $skill }}
-                                            </label>
+                                                {{ in_array($key, old('skills', [])) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ $key }}">{{ $skill }}</label>
                                         </div>
                                     @endforeach
                                 </div>
@@ -437,36 +474,6 @@ $languagesList = [
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
-                            </div>
-
-                            <!-- Preferred Times -->
-                            <div class="form-group row">
-                                <label for="preferred_times"
-                                       class="col-md-4 col-form-label text-md-right">@lang('Preferred Times')</label>
-
-                                <div class="col-md-6">
-
-                                    <div class="form-check">
-                                        <input class="form-check-input"
-                                               type="checkbox" name="preferred_times[]"
-                                               {{ in_array('morning', old('preferred_times', [])) ? 'checked' : '' }}
-                                               id="preferred_times-morning" value="morning">
-                                        <label class="form-check-label" for="preferred_times-morning">
-                                            @lang('Morning shift')
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input"
-                                               type="checkbox" name="preferred_times[]"
-                                               {{ in_array('evening', old('preferred_times', [])) ? 'checked' : '' }}
-                                               id="preferred_times-evening" value="evening">
-                                        <label class="form-check-label" for="preferred_times-evening">
-                                            @lang('Evening shift')
-                                        </label>
-                                    </div>
-
                                 </div>
                             </div>
 
@@ -530,10 +537,14 @@ $languagesList = [
                                        class="col-md-4 col-form-label text-md-right">@lang('Languages')</label>
 
                                 <div class="col-md-6">
+                                    @if ($errors->has('languages'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $errors->first('languages') }}</strong>
+                                        </span>
+                                    @endif
                                     @foreach($languagesList as $key => $language)
                                         <div class="form-check">
                                             <input title="@lang('languages')"
-                                                   class="form-check-input {{ $errors->has('languages') ? ' is-invalid' : '' }}"
                                                    type="checkbox" name="languages[]"
                                                    id="{{ $key }}" value="{{ $key }}"
                                                 {{ in_array($language, old('languages', [])) ? 'checked' : '' }}>

@@ -2,16 +2,24 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 
-
 /**
- * @property int     $id
- * @property User    $user
- * @property string  $gender
- * @property Carbon  $birth_date
+ * @property int            $id
+ * @property \Carbon\Carbon $birth_date
+ * @property string         $gender
+ * @property string         $city
+ * @property string         $academic_degree
+ * @property string         $occupation
+ * @property string         $preferred_times
+ * @property string         $typing_speed
+ * @property string         $languages
+ * @property string         $skills
+ * @property string         $experiences
+ * @property string         $twitter
+ * @property string         $instegram
+ * @property User           $user
  */
 class Profile extends Model
 {
@@ -22,14 +30,18 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'gender',
         'birth_date',
-        'prefered_times',
+        'gender',
+        'city',
+        'academic_degree',
+        'occupation',
+        'preferred_times',
+        'typing_speed',
+        'languages',
         'skills',
+        'experiences',
         'twitter',
         'instegram',
-        'experiences',
-        'city',
     ];
 
     /**
@@ -40,13 +52,6 @@ class Profile extends Model
     protected $dates = [
         'birth_date',
     ];
-
-    /**
-     * The database primary key value.
-     *
-     * @var string
-     */
-    protected $guarded = ['user_id', '_token'];
 
     /**
      * Relationship: A profile belong to a user.
