@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Intervention\Image\ImageManager  as Image;
+
+
 
 class RegisterController extends Controller
 {
@@ -44,6 +47,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        //dd(request()->all());
         return Validator::make($data, [
             'username'        => 'required|string|max:255',
             'first_name'        => 'required|string|max:255',
@@ -66,6 +70,13 @@ class RegisterController extends Controller
             'mobile'      => 'required|unique:users|regex:/^05\d{8}$/',
             'gender'      => 'required',
             'birth_date'  => 'required|date|before:13 years ago',
+            'prefered_times'  => 'required',
+            'skills'  => 'required',
+            'twitter'  => 'nullable|string|max:40',
+            'instegram'  => 'nullable|string|max:40',
+            'experiences'  => 'required|string|max:500',
+            'city'  => 'required|string',
+            //'avatar'  => 'required|string',
         ]);
     }
 
@@ -88,6 +99,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         /** @var User $user */
         $user = User::create([
             'username'    => $data['username'],
@@ -101,8 +113,15 @@ class RegisterController extends Controller
             'mobile'      => $data['mobile'],
         ]);
 
+
+
+        $data['prefered_times'] = implode(',',$data['prefered_times']);
+        $data['skills'] = implode(',',$data['skills']);
+
         $profile = Profile::query()->make($data);
         $user->profile()->save($profile);
+
+
 
         return $user;
     }
@@ -141,4 +160,17 @@ class RegisterController extends Controller
 
         return $sum % 10 ? -1 : $type;
     }
+
+//    public function update_avatar(Request $request){
+//
+//        // Handle the user upload of avatar
+//        if($request->hasFile('avatar')){
+//            $avatar = $request->file('avatar');
+//            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+//            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+//
+//            $user = Auth::user();
+//            $user->avatar = $filename;
+//            $user->save();
+//        }}
 }

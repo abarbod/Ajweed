@@ -19,7 +19,13 @@ class CreateProfilesTable extends Migration
 
             $table->date('birth_date');
 
-            $table->enum('gender', ['male', 'female']);
+            $table->enum('gender', ['ذكر', 'أنثى']);
+            $table->string('prefered_times', 30);
+            $table->string('skills', 500);
+            $table->string('twitter', 40)->nullable();
+            $table->string('instegram', 40)->nullable();
+            $table->string('experiences', 500);
+            $table->string('city', 30);
 
             $table->foreign('user_id')
                   ->references('id')->on('users')

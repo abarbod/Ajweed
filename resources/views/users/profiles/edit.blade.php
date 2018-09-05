@@ -28,8 +28,8 @@
                                     <div class="form-check">
                                         <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
                                                type="radio" name="gender"
-                                               {{ old('gender', $profile->gender) === 'male' ? 'checked': '' }}
-                                               id="maleRadio" value="male">
+                                               {{ old('gender', $profile->gender) === 'ذكر' ? 'checked': '' }}
+                                               id="maleRadio" value="ذكر">
                                         <label class="form-check-label" for="maleRadio">
                                             {{ __('Male') }}
                                         </label>
@@ -37,8 +37,8 @@
                                     <div class="form-check">
                                         <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
                                                type="radio" name="gender"
-                                               {{ old('gender', $profile->gender) === 'female' ? 'checked': '' }}
-                                               id="femaleRadio" value="female">
+                                               {{ old('gender', $profile->gender) === 'أنثى' ? 'checked': '' }}
+                                               id="femaleRadio" value="أنثى">
                                         <label class="form-check-label" for="femaleRadio">
                                             {{ __('Female') }}
                                         </label>

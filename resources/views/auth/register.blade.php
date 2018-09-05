@@ -44,10 +44,10 @@
 
                         <!-- avatar -->
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('avatar') }}</label>
+                            <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('avatar') }}</label>
 
                             <div class="col-md-6">
-                                <input type="file" name="pic" accept="image/*">
+                                <input type="file" enctype="multipart/form-data" name="avatar" accept="image/*">
                             </div>
                         </div>
 
@@ -120,8 +120,8 @@
                                 <div class="form-check">
                                     <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
                                            type="radio" name="gender"
-                                           {{ old('gender') === 'male' ? 'checked': '' }}
-                                           id="maleRadio" value="male">
+                                           {{ old('gender') === 'ذكر' ? 'checked': '' }}
+                                           id="maleRadio" value="ذكر">
                                     <label class="form-check-label" for="maleRadio">
                                         {{ __('Male') }}
                                     </label>
@@ -129,8 +129,8 @@
                                 <div class="form-check">
                                     <input class="form-check-input{{ $errors->has('gender') ? ' is-invalid' : '' }}"
                                            type="radio" name="gender"
-                                           {{ old('gender') === 'female' ? 'checked': '' }}
-                                           id="femaleRadio" value="female">
+                                           {{ old('gender') === 'أنثى' ? 'checked': '' }}
+                                           id="femaleRadio" value="أنثى">
                                     <label class="form-check-label" for="femaleRadio">
                                         {{ __('Female') }}
                                     </label>
@@ -199,26 +199,26 @@
 
                         <!-- City -->
                         <div class="form-group row">
-                            <label for="official_id" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
+                            <label for="City" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control form-select required" id="edit-profile-volunteer-field-city-und" name="profile_volunteer[field_city][und]">
+                                <select class="form-control form-select required" id="city" name="city">
                                     <option value="_none">- اختر -</option>
-                                    <option value="28">أبها</option>
-                                    <option value="31">الباحة</option>
-                                    <option value="26">الجوف</option>
-                                    <option value="27">الحدود الشمالية</option>
-                                    <option value="32">الخبر</option>
-                                    <option value="22">الدمام</option>
-                                    <option value="2">الرياض</option>
-                                    <option value="23">القصيم</option>
-                                    <option value="34">المدينة المنورة</option>
-                                    <option value="25">تبوك</option>
-                                    <option value="30">جازان</option>
-                                    <option value="21">جده</option>
-                                    <option value="24">حائل</option>
-                                    <option value="33">مكة المكرمة</option>
-                                    <option value="29">نجران</option>
+                                    <option value="أبها">أبها</option>
+                                    <option value="الباحة">الباحة</option>
+                                    <option value="الجوف">الجوف</option>
+                                    <option value="الحدود الشمالية">الحدود الشمالية</option>
+                                    <option value="الخبر">الخبر</option>
+                                    <option value="الدمام">الدمام</option>
+                                    <option value="الرياض">الرياض</option>
+                                    <option value="القصيم">القصيم</option>
+                                    <option value="المدينة المنورة">المدينة المنورة</option>
+                                    <option value="تبوك">تبوك</option>
+                                    <option value="جازان">جازان</option>
+                                    <option value="جده">جده</option>
+                                    <option value="حائل">حائل</option>
+                                    <option value="مكة المكرمة">مكة المكرمة</option>
+                                    <option value="نجران">نجران</option>
                                 </select>
                             </div>
                         </div>
@@ -255,137 +255,41 @@
 
                         <!-- skills -->
                         <div class="form-group row">
-                            <label for="gender"
+                            <label for="skills"
                                    class="col-md-4 col-form-label text-md-right">{{ __('skills') }}</label>
 
                             <div class="col-md-6">
 
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="maleRadio" value="male">
-                                    <label class="form-check-label" for="maleRadio">
-                                        {{ __('Public Relations') }}
-                                    </label>
-                                </div>
+                                <?php
 
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="maleRadio" value="male">
-                                    <label class="form-check-label" for="maleRadio">
-                                        {{ __('Marketing') }}
-                                    </label>
-                                </div>
+                                $skills = [
+                                    'Public Relations'       => __('Public Relations'),
+                                    'Marketing'       => __('Marketing'),
+                                    'editing'       => __('Editing'),
+                                    'editing'       => __('Editing'),
+                                    'Communication'       => __('Communication'),
+                                    'Presentation'       => __('Planning'),
+                                    'MS Office'       => __('MS Office'),
+                                    'Design'       => __('Design'),
+                                    'Graphics'       => __('Graphics'),
+                                    'Motion graphics'       => __('Motion graphics'),
+                                    'Photographer'       => __('Photographer'),
+                                    'Draw'       => __('Draw'),
+                                    'video_filming' => __('Video filming'),
+                                ];
 
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="maleRadio" value="male">
-                                    <label class="form-check-label" for="maleRadio">
-                                        {{ __('Communication') }}
-                                    </label>
-                                </div>
+                                ?>
+                                @foreach($skills as $key => $skill)
 
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="gender"
-                                           id="maleRadio" value="male">
-                                    <label class="form-check-label" for="maleRadio">
-                                        {{ __('Presentation') }}
-                                    </label>
-                                </div>
-
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Planning') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('MS Office') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Design') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Graphics') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Motion graphics') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Photographer') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Video filming') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Editing') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Draw') }}
-                                    </label>
-                                </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="femaleRadio" value="female">
-                                    <label class="form-check-label" for="femaleRadio">
-                                        {{ __('Others') }}
-                                    </label>
-                                </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="checkbox" name="skills[]"
+                                               id="{{ $key }}" value="{{ $skill }}">
+                                        <label class="form-check-label" for="skills">
+                                            {{ $skill }}
+                                        </label>
+                                    </div>
+                                @endforeach
 
                             </div>
                         </div>
@@ -408,25 +312,25 @@
 
                         <!-- prefered_times -->
                         <div class="form-group row">
-                            <label for="gender"
+                            <label for="prefered_times"
                                    class="col-md-4 col-form-label text-md-right">{{ __('prefered_times') }}</label>
 
                             <div class="col-md-6">
 
                                 <div class="form-check">
                                     <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="maleRadio" value="male">
-                                    <label class="form-check-label" for="maleRadio">
-                                        {{ __('Moiring shift') }}
+                                           type="checkbox" name="prefered_times[]"
+                                           id="morningRadio" value="مسائي">
+                                    <label class="form-check-label" for="prefered_times">
+                                        {{ __('Morning shift') }}
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input"
-                                           type="checkbox" name="skills"
-                                           id="maleRadio" value="male">
-                                    <label class="form-check-label" for="maleRadio">
+                                           type="checkbox" name="prefered_times[]"
+                                           id="eveningRadio" value="صباحي">
+                                    <label class="form-check-label" for="prefered_times">
                                         {{ __('Evening shift') }}
                                     </label>
                                 </div>
@@ -437,28 +341,34 @@
 
                         <!-- Twitter  -->
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('twitter id') }}</label>
+                            <label for="twitter" class="col-md-4 col-form-label text-md-right">{{ __('twitter id') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="twitter">
+                                <input id="twitter" type="text" class="form-control" name="twitter">
                             </div>
                         </div>
 
                         <!-- instegram -->
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('instegram id') }}</label>
+                            <label for="instegram" class="col-md-4 col-form-label text-md-right">{{ __('instegram id') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="twitter">
+                                <input id="instegram" type="text" class="form-control" name="instegram">
+
                             </div>
                         </div>
 
                         <!-- Experiences  -->
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Experiences') }}</label>
+                            <label for="experiences" class="col-md-4 col-form-label text-md-right">{{ __('Experiences') }}</label>
 
                             <div class="col-md-6">
-                                <input id="Experiences" type="text" class="form-control form-control-lg" name="Experiences">
+                                <input id="experiences" type="text" class="form-control{{ $errors->has('experiences') ? ' is-invalid' : '' }} form-control-lg" name="experiences" value="{{ old('experiences') }}" required autofocus>
+                                @if ($errors->has('experiences'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('experiences') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
