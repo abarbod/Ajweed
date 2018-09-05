@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Intervention\Image\ImageManager as Image;
-
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -56,7 +57,12 @@ class RegisterController extends Controller
             'grandfather_name' => ['required', 'string', 'max:255'],
             'last_name'        => ['required', 'string', 'max:255'],
             'mobile'           => ['required', 'unique:users', 'regex:/^05\d{8}$/'],
-            'avatar'           => ['nullable', 'image', 'dimensions:min_width=100,min_height=100'],
+            'avatar'           => [
+                'nullable',
+                'image',
+                'dimensions:min_width=300,min_height=300',
+                'mimes:jpeg,png,jpg',
+            ],
             'official_id'      => [
                 'required',
                 'digits:10',
@@ -116,6 +122,7 @@ class RegisterController extends Controller
             'password'         => Hash::make($data['password']),
             'official_id'      => $data['official_id'],
             'mobile'           => $data['mobile'],
+            'avatar'           => $this->storeAvatar($data),
         ]);
 
         $data['preferred_times'] = implode(',', $data['preferred_times']);
@@ -164,16 +171,36 @@ class RegisterController extends Controller
         return $sum % 10 ? -1 : $type;
     }
 
-//    public function update_avatar(Request $request){
-//
-//        // Handle the user upload of avatar
-//        if($request->hasFile('avatar')){
-//            $avatar = $request->file('avatar');
-//            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-//            Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
-//
-//            $user = Auth::user();
-//            $user->avatar = $filename;
-//            $user->save();
-//        }}
+    /**
+     * Store the user uploaded avatar on public disk.
+     *
+     * @param array $data the request inputs.
+     *
+     * @return string The file pathname to store in database if storing is successful.
+     */
+    protected function storeAvatar(array $data)
+    {
+        // Only if the user has uploaded an image using the avatar field.
+        if (isset($data['avatar']) && $data['avatar'] instanceof UploadedFile) {
+
+            // If any exception is thrown when storing the file, we return nothing.
+            try {
+                // Resize and convert the image to jpg string.
+                $image = (string)Image::make($data['avatar'])
+                                      ->resize(300, 300)
+                                      ->encode('jpg');
+
+                // Store the file on disk. Path = storage/app/public/avatars with random file name.
+                $fileName = 'avatars/' . time() . '-' . str_random(40) . '.jpg';
+                $result   = Storage::disk('public')->put($fileName, $image);
+
+                // We return the file name to store it in database.
+                if ($result) {
+                    return $fileName;
+                }
+            } catch (\Exception $exception) {
+            }
+        }
+    }
+
 }
