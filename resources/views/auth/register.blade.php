@@ -142,7 +142,7 @@ $languagesList = [
 
                                 <div class="col-md-6">
                                     <input type="file" name="avatar" accept="image/*"
-                                           class="form-control-file{{ $errors->has('first_name') ? ' is-invalid' : '' }}">
+                                           class="form-control-file{{ $errors->has('avatar') ? ' is-invalid' : '' }}">
                                     @if ($errors->has('avatar'))
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('avatar') }}</strong>
