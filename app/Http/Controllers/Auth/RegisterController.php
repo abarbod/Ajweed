@@ -49,7 +49,7 @@ class RegisterController extends Controller
     {
         //dd(request()->all());
         return Validator::make($data, [
-            'username'        => 'required|string|max:255',
+            'username'        => 'required|string|max:255|unique:users',
             'first_name'        => 'required|string|max:255',
             'father_name'      => 'required|string|max:255',
             'grandfather_name' => 'required|string|max:255',
