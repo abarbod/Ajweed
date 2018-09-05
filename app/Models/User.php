@@ -4,21 +4,22 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 /**
- * @property int     $id
- * @property string  $username
- * @property string  $first_name
- * @property string  $second_name
- * @property string  $third_name
- * @property string  $last_name
- * @property string  $email
- * @property string  $password
- * @property string  $official_id
- * @property string  $avatar
- * @property string  $mobile
- * @property Profile $profile
- * @property \Illuminate\Support\Collection|\App\Models\Event[] $pendingEvents
+ * @property int                                                      $id
+ * @property string                                                   $username
+ * @property string                                                   $first_name
+ * @property string                                                   $second_name
+ * @property string                                                   $third_name
+ * @property string                                                   $last_name
+ * @property string                                                   $email
+ * @property string                                                   $password
+ * @property string                                                   $official_id
+ * @property string                                                   $avatar
+ * @property string                                                   $mobile
+ * @property Profile                                                  $profile
+ * @property \Illuminate\Support\Collection|\App\Models\Event[]       $pendingEvents
  * @property \Illuminate\Support\Collection|\App\Models\Application[] $applications
  */
 class User extends Authenticatable
@@ -111,11 +112,13 @@ class User extends Authenticatable
      */
     public function avatar($size = 45)
     {
-        $default = 'mm';
+        if (Storage::disk('public')->exists($this->avatar)) {
+            return Storage::disk('public')->url($this->avatar);
+        };
 
         return sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s',
             md5(strtolower(trim($this->email))),
-            $default,
+            'mm',
             $size
         );
     }
