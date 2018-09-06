@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\MustVerifyEmail;
+use App\Models\Contracts\MustVerifyMobile as MustVerifyMobileContract;
+use App\Models\Traits\MustVerifyMobile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
@@ -19,14 +20,16 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
  * @property string                                                   $password
  * @property string                                                   $official_id
  * @property string                                                   $avatar
+ * @property \Carbon\Carbon                                           $email_verified_at
+ * @property \Carbon\Carbon                                           $sms_verified_at
  * @property string                                                   $mobile
  * @property Profile                                                  $profile
  * @property \Illuminate\Support\Collection|\App\Models\Event[]       $pendingEvents
  * @property \Illuminate\Support\Collection|\App\Models\Application[] $applications
  */
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, MustVerifyMobileContract
 {
-    use Notifiable, MustVerifyEmail;
+    use Notifiable, MustVerifyMobile;
 
     /**
      * The attributes that are mass assignable.
