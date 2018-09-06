@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\MustVerifyEmail;
+use App\Models\Contracts\MustVerifyMobile as MustVerifyMobileContract;
+use App\Models\Traits\MustVerifyMobile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
@@ -19,14 +20,16 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
  * @property string                                                   $password
  * @property string                                                   $official_id
  * @property string                                                   $avatar
+ * @property \Carbon\Carbon                                           $email_verified_at
+ * @property \Carbon\Carbon                                           $mobile_verified_at
  * @property string                                                   $mobile
  * @property Profile                                                  $profile
  * @property \Illuminate\Support\Collection|\App\Models\Event[]       $pendingEvents
  * @property \Illuminate\Support\Collection|\App\Models\Application[] $applications
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract, MustVerifyMobileContract
 {
-    use Notifiable;
+    use Notifiable, MustVerifyMobile;
 
     /**
      * The attributes that are mass assignable.
@@ -102,6 +105,16 @@ class User extends Authenticatable
         return optional($this->profile)->isComplete();
     }
 
+    /**
+     * Route notifications for the MobilyWs channel.
+     * Mobile numbers are stored as "05xxxxxxxx", we need to change it to "9665xxxxxxxx"
+     *
+     * @return string
+     */
+    public function routeNotificationForMobilyWs()
+    {
+        return "966" . ltrim($this->mobile, '0');
+    }
 
     /**
      * The user avatar
