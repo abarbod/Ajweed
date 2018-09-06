@@ -50,7 +50,7 @@ class VerifyMobile extends Notification
         $message = "Click the link to verify your account\n";
         $message .= $url;
 
-        session()->flash('sms-url', $url);
+        session()->put('sms-url', $url);
 
         return $msg->text($message);
     }

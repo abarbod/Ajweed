@@ -19,6 +19,7 @@
                                 </p>
                                 <p>Click <a href="{{ session('sms-url') }}">this link</a> to verify your mobile.</p>
                             </div>
+                            <?php session()->forget('sms-url'); ?>
                         @endif
                         @if (session('resent'))
                             <div class="alert alert-success" role="alert">
