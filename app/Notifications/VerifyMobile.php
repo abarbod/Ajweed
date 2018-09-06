@@ -65,7 +65,7 @@ class VerifyMobile extends Notification
     protected function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(
-            'verification.verify', Carbon::now()->addMinutes(1), ['id' => $notifiable->getKey()]
+            'verification.verify-mobile', Carbon::now()->addDay(1), ['id' => $notifiable->getKey()]
         );
     }
 
