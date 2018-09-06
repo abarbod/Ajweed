@@ -2,7 +2,7 @@
 
 namespace App\Models\Traits;
 
-use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Notifications\VerifyMobile;
 
 /**
  * This trait will be used by User model to implement Laravel MustVerifyEmail contract.
@@ -40,7 +40,7 @@ trait MustVerifyMobile
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmail);
+        $this->notify(new VerifyMobile);
     }
 
 }
