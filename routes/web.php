@@ -7,10 +7,10 @@ $router->get('/', function () {
     return view('welcome');
 });
 
-\Illuminate\Support\Facades\Auth::routes();
+\Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 
 $router->get('/account', 'Users\AccountController@index')
-       ->middleware(['auth'])
+       ->middleware(['auth', 'verified'])
        ->name('users.account.index');
 
 // Profile routes. (We use the user routeKey, {user} = routeKey)

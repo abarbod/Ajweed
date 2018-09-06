@@ -24,9 +24,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
  * @property \Illuminate\Support\Collection|\App\Models\Event[]       $pendingEvents
  * @property \Illuminate\Support\Collection|\App\Models\Application[] $applications
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable;
+    use Notifiable, MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
