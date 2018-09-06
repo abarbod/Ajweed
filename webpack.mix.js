@@ -12,10 +12,10 @@ const exec = require("child_process").exec;
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css');
 
-mix.sass('resources/assets/sass/app-rtl.scss', 'public/css')
+mix.sass('resources/sass/app-rtl.scss', 'public/css')
     .then(() => {
         exec('node_modules/rtlcss/bin/rtlcss.js public/css/app-rtl.css ./public/css/app-rtl.css');
     })
