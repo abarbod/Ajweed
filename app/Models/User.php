@@ -7,27 +7,26 @@ use App\Models\Traits\MustVerifyMobile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
 /**
- * @property int                                                      $id
- * @property string                                                   $username
- * @property string                                                   $first_name
- * @property string                                                   $second_name
- * @property string                                                   $third_name
- * @property string                                                   $last_name
- * @property string                                                   $email
- * @property string                                                   $password
- * @property string                                                   $official_id
- * @property string                                                   $avatar
- * @property \Carbon\Carbon                                           $email_verified_at
- * @property \Carbon\Carbon                                           $mobile_verified_at
- * @property string                                                   $mobile
- * @property Profile                                                  $profile
- * @property \Illuminate\Support\Collection|\App\Models\Event[]       $pendingEvents
+ * @property int $id
+ * @property string $username
+ * @property string $first_name
+ * @property string $second_name
+ * @property string $third_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $password
+ * @property string $official_id
+ * @property string $avatar
+ * @property \Carbon\Carbon $email_verified_at
+ * @property \Carbon\Carbon $mobile_verified_at
+ * @property string $mobile
+ * @property Profile $profile
+ * @property \Illuminate\Support\Collection|\App\Models\Event[] $pendingEvents
  * @property \Illuminate\Support\Collection|\App\Models\Application[] $applications
  */
-class User extends Authenticatable implements MustVerifyEmailContract, MustVerifyMobileContract
+class User extends Authenticatable implements MustVerifyMobileContract
 {
     use Notifiable, MustVerifyMobile;
 

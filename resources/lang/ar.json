@@ -78,5 +78,10 @@
     "Users": "الأعضاء",
     "User": "العضو",
     "Profiles": "البيانات الشخصية",
-    "Profile": "الملف الشخصي"
+    "Profile": "الملف الشخصي",
+    "Verify Mobile Number": "تفعيل رقم الجوال",
+    "A fresh verification link has been sent to your mobile number.": "تم إرسال رابط جديد إلى رقم جوالك.",
+    "Before proceeding, please check your mobile for a verification link.": "قبل المتابعة، يرجى الضغط على الرابط المرسل إلى جوالك لتفعيل حسابك.",
+    "If you did not receive the SMS,": "إذا لم تصلك الرسالة النصية،",
+    "click here to get a new SMS": "اضغط هنا لاستلام رسالة نصية جديدة"
 }

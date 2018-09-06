@@ -5,7 +5,7 @@ namespace App\Models\Traits;
 use App\Notifications\VerifyMobile;
 
 /**
- * This trait will be used by User model to implement Laravel MustVerifyEmail contract.
+ * This trait will be used by User model implementing MustVerifyMobile contract.
  * However, we will change it verify Mobile number.
  *
  * Trait MustVerifyMobile
@@ -18,7 +18,7 @@ trait MustVerifyMobile
      *
      * @return bool
      */
-    public function hasVerifiedEmail()
+    public function hasVerifiedMobile()
     {
         return ! is_null($this->mobile_verified_at);
     }
@@ -28,7 +28,7 @@ trait MustVerifyMobile
      *
      * @return void
      */
-    public function markEmailAsVerified()
+    public function markMobileAsVerified()
     {
         $this->forceFill(['mobile_verified_at' => $this->freshTimestamp()])->save();
     }
@@ -38,7 +38,7 @@ trait MustVerifyMobile
      *
      * @return void
      */
-    public function sendEmailVerificationNotification()
+    public function sendMobileVerificationNotification()
     {
         $this->notify(new VerifyMobile);
     }

@@ -9,8 +9,12 @@ $router->get('/', function () {
 
 \Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 
+$router->get('mobile/verify', 'Auth\VerificationController@showMobile')->name('verification.notice-mobile');
+$router->get('mobile/verify/{id}', 'Auth\VerificationController@verifyMobile')->name('verification.verify-mobile');
+$router->get('mobile/resend', 'Auth\VerificationController@resendMobile')->name('verification.resend-mobile');
+
 $router->get('/account', 'Users\AccountController@index')
-       ->middleware(['auth', 'verified'])
+       ->middleware(['auth', 'verified-mobile'])
        ->name('users.account.index');
 
 // Profile routes. (We use the user routeKey, {user} = routeKey)
