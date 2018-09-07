@@ -9,11 +9,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 
 /**
+ * @property string $full_name concatenated name.
  * @property int $id
  * @property string $username
  * @property string $first_name
- * @property string $second_name
- * @property string $third_name
+ * @property string $father_name
+ * @property string $grandfather_name
  * @property string $last_name
  * @property string $email
  * @property string $password
@@ -56,6 +57,15 @@ class User extends Authenticatable implements MustVerifyMobileContract
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_name',
     ];
 
     /**
@@ -134,6 +144,22 @@ class User extends Authenticatable implements MustVerifyMobileContract
             md5(strtolower(trim($this->email))),
             'mm',
             $size
+        );
+    }
+
+    /**
+     * Get the user's full name.
+     * Attribute accessors can be used like: $user->full_name.
+     *
+     * @return string concatenated full name
+     */
+    public function getFullNameAttribute()
+    {
+        return sprintf('%1$s %2$s %3$s %4$s',
+            $this->first_name,
+            $this->father_name,
+            $this->grandfather_name,
+            $this->last_name
         );
     }
 
