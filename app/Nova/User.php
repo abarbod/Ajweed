@@ -4,9 +4,11 @@ namespace App\Nova;
 
 use App\Rules\SaudiOfficialId;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
@@ -58,11 +60,16 @@ class User extends Resource
             ID::make(__('ID'), 'id')
               ->sortable(),
 
-            Gravatar::make(__('Avatar'))
-                    ->resolveUsing(function () { // Important to prevent avatar download link.
-                    })
-                    ->preview($this->avatarCallback())
-                    ->thumbnail($this->avatarCallback()),
+            Avatar::make(__('avatar'), 'avatar')
+                  ->deletable(false)
+                  ->preview($this->avatarCallback())
+                  ->thumbnail($this->avatarCallback())
+                  ->store(function (Request $request, \App\Models\User $user) {
+                      $user->storeAvatar($request->file('avatar'));
+
+                      return $user->avatar;
+                  })->resolveUsing(function () { // Important to prevent avatar download link.
+                }),
 
             Text::make(__('First Name'), 'first_name')
                 ->onlyOnForms()
