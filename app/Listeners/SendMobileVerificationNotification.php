@@ -17,6 +17,11 @@ class SendMobileVerificationNotification
      */
     public function handle(Registered $event)
     {
+        // Disable mobile verification on local environment.
+        if (app()->environment('local')) {
+            return;
+        }
+
         if ($event->user instanceof MustVerifyMobile) {
             $event->user->sendMobileVerificationNotification();
         }
