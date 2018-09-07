@@ -108,7 +108,7 @@ class RegisterController extends Controller
     {
 
         /** @var User $user */
-        $user = User::create([
+        $user = User::query()->make([
             'username'         => $data['username'],
             'first_name'       => $data['first_name'],
             'father_name'      => $data['father_name'],
@@ -118,8 +118,11 @@ class RegisterController extends Controller
             'password'         => Hash::make($data['password']),
             'official_id'      => $data['official_id'],
             'mobile'           => $data['mobile'],
-            'avatar'           => $this->storeAvatar($data),
         ]);
+
+        $this->storeAvatar($user, $data);
+
+        $user->save();
 
         $data['preferred_times'] = implode(',', $data['preferred_times']);
         $data['languages']       = implode(',', $data['languages']);
@@ -135,32 +138,16 @@ class RegisterController extends Controller
     /**
      * Store the user uploaded avatar on public disk.
      *
+     * @param \App\Models\User $user
      * @param array $data the request inputs.
      *
      * @return string The file pathname to store in database if storing is successful.
      */
-    protected function storeAvatar(array $data)
+    protected function storeAvatar(User $user, array $data)
     {
         // Only if the user has uploaded an image using the avatar field.
         if (isset($data['avatar']) && $data['avatar'] instanceof UploadedFile) {
-
-            // If any exception is thrown when storing the file, we return nothing.
-            try {
-                // Resize and convert the image to jpg string.
-                $image = (string)Image::make($data['avatar'])
-                                      ->resize(300, 300)
-                                      ->encode('jpg');
-
-                // Store the file on disk. Path = storage/app/public/avatars with random file name.
-                $fileName = 'avatars/' . time() . '-' . str_random(40) . '.jpg';
-                $result   = Storage::disk('public')->put($fileName, $image);
-
-                // We return the file name to store it in database.
-                if ($result) {
-                    return $fileName;
-                }
-            } catch (\Exception $exception) {
-            }
+            $user->storeAvatar($data['avatar']);
         }
     }
 
