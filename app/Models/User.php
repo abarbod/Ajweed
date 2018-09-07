@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Contracts\MustVerifyMobile as MustVerifyMobileContract;
+use App\Models\Traits\HasAvatar;
 use App\Models\Traits\MustVerifyMobile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,7 +20,6 @@ use Illuminate\Support\Facades\Storage;
  * @property string $email
  * @property string $password
  * @property string $official_id
- * @property string $avatar
  * @property \Carbon\Carbon $email_verified_at
  * @property \Carbon\Carbon $mobile_verified_at
  * @property string $mobile
@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class User extends Authenticatable implements MustVerifyMobileContract
 {
-    use Notifiable, MustVerifyMobile;
+    use Notifiable, MustVerifyMobile, HasAvatar;
 
     /**
      * The attributes that are mass assignable.
@@ -46,7 +46,6 @@ class User extends Authenticatable implements MustVerifyMobileContract
         'password',
         'official_id',
         'mobile',
-        'avatar',
     ];
 
     /**
@@ -125,27 +124,6 @@ class User extends Authenticatable implements MustVerifyMobileContract
         return "966" . ltrim($this->mobile, '0');
     }
 
-    /**
-     * The user avatar
-     *
-     * @param int $size , in pixels, of the image returned by gravatar (anywhere from 1px up to 2048px).
-     *
-     * @link https://en.gravatar.com/site/implement/images/
-     *
-     * @return string
-     */
-    public function avatar($size = 45)
-    {
-        if (Storage::disk('public')->exists($this->avatar)) {
-            return Storage::disk('public')->url($this->avatar);
-        };
-
-        return sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s',
-            md5(strtolower(trim($this->email))),
-            'mm',
-            $size
-        );
-    }
 
     /**
      * Get the user's full name.
