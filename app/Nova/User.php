@@ -58,7 +58,11 @@ class User extends Resource
             ID::make(__('ID'), 'id')
               ->sortable(),
 
-            Gravatar::make(__('avatar')),
+            Gravatar::make(__('Avatar'))
+                    ->resolveUsing(function () { // Important to prevent avatar download link.
+                    })
+                    ->preview($this->avatarCallback())
+                    ->thumbnail($this->avatarCallback()),
 
             Text::make(__('First Name'), 'first_name')
                 ->onlyOnForms()
@@ -190,6 +194,20 @@ class User extends Resource
     public static function authorizable()
     {
         return false;
+    }
+
+    /**
+     * Return a callback to use with Gravatar input field.
+     * We delegate to the User avatar method.
+     * Will return a photo url if there is one on file, or a gravatar link.
+     *
+     * @return \Closure
+     */
+    protected function avatarCallback()
+    {
+        return function () {
+            return $this->avatarUrl(300);
+        };
     }
 
 }
