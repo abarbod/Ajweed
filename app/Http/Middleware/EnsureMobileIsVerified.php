@@ -18,6 +18,11 @@ class EnsureMobileIsVerified
      */
     public function handle($request, Closure $next)
     {
+        // Disable mobile verification on local environment.
+        if (app()->environment('local')) {
+            return $next($request);
+        }
+
         if (! $request->user() ||
             ($request->user() instanceof MustVerifyMobile &&
              ! $request->user()->hasVerifiedMobile())) {
@@ -25,5 +30,6 @@ class EnsureMobileIsVerified
         }
 
         return $next($request);
+
     }
 }
