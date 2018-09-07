@@ -124,4 +124,16 @@ class Profile extends Resource
         return __('Profile');
     }
 
+    /**
+     * Determine if the given resource is authorizable.
+     * We disable Nova authorization until we build the authorization system.
+     *
+     * @return bool
+     */
+    public static function authorizable()
+    {
+        return false;
+    }
+
+
 }
