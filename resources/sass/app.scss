@@ -1,16 +1,13 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+@import "fonts";
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 // Put a red asterisk to required form field labels.
@@ -18,3 +15,5 @@ label.required:after {
     content: " *";
     color: red;
 }
+
+@import "header";
