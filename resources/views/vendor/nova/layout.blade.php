@@ -17,6 +17,10 @@
     @foreach(Nova::availableStyles(request()) as $name => $path)
         <link rel="stylesheet" href="/nova-api/styles/{{ $name }}">
     @endforeach
+    <style type="text/css">
+        .st2{fill:#606161}
+    </style>
+
 </head>
 <body class="min-w-site bg-40 text-black min-h-full" dir="rtl">
     <div id="nova">
@@ -24,7 +28,7 @@
             <!-- Sidebar -->
             <div class="min-h-screen flex-none pt-header min-h-screen w-sidebar bg-grad-sidebar px-6">
                 <a href="{{ Nova::path() }}">
-                    <div class="absolute pin-t pin-l pin-r bg-logo flex items-center w-sidebar h-header px-6 text-white">
+                    <div class="absolute pin-t pin-l pin-r bg-logo flex items-center w-sidebar h-header px-6 text-white justify-center">
                        @include('nova::partials.logo')
                     </div>
                 </a>
