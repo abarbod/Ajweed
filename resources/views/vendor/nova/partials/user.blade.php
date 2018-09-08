@@ -1,8 +1,9 @@
 <dropdown-trigger class="h-9 flex items-center" slot-scope="{toggle}" :handle-click="toggle">
-    <img src="https://secure.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?size=512" class="rounded-full w-8 h-8 mr-3"/>
+{{--    <img src="https://secure.gravatar.com/avatar/{{ md5(auth()->user()->email) }}?size=512" class="rounded-full w-8 h-8 mr-3"/>--}}
+    <img src="{{ auth()->user()->avatarUrl('512') }}" class="rounded-full w-8 h-8 mr-3"/>
 
     <span class="text-90">
-        {{ auth()->user()->name }}
+        {{ auth()->user()->username }}
     </span>
 </dropdown-trigger>
 

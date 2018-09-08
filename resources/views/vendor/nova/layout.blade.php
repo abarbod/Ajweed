@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=1280">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ Nova::name() }}</title>
+    <title>Ajaweed | أجاويد</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,800,800i,900,900i" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="/nova-api/styles/{{ $name }}">
     @endforeach
     <style type="text/css">
-        .st2{fill:#606161}
+        .st2{fill:#ffffff}
     </style>
 
 </head>
@@ -49,7 +49,7 @@
                         <global-search></global-search>
                     @endif
 
-                    <dropdown class="ml-auto h-9 flex items-center" style="right: 20px">
+                    <dropdown class="ml-auto h-9 flex items-center" style="left: 20px">
                         @include('nova::partials.user')
                     </dropdown>
                 </div>
