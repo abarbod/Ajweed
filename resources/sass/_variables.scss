@@ -6,6 +6,8 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+$headings-color: #2A3B8F;
+$headings-font-weight: 900;
 
 // Colors
 $blue: #3490dc;
@@ -18,3 +20,18 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+
+// Slick
+$slick-arrow-color: #2A3B8F !default;
+$slick-prev-character: "\2190" !default;
+$slick-next-character: "\2192" !default;
+
+$slick-dot-color: #2A3B8F !default;
+$slick-dot-character: "\026AC" !default;
+$slick-dot-size: 30px !default;
+$slick-dot-color-active: $slick-dot-color !default;
+
+$slick-opacity-default: 0.75 !default;
+$slick-opacity-on-hover: 1 !default;
+$slick-opacity-not-active: 0.25 !default;
