@@ -19,5 +19,8 @@
         "popper.js": "^1.12",
         "rtlcss": "^2.4.0",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "slick-carousel": "^1.8.1"
     }
 }

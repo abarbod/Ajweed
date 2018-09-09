@@ -229,6 +229,30 @@ $partners = [
 
         @endforeach
 
+
+        <article id="page-partners" class="bg-white my-5">
+
+            <div class="page-title col-12 p-2 text-center">
+                <h3>شركاء النجاح</h3>
+            </div>
+
+            <section class="row mx-4">
+                <div class="col">
+                    <div class="partners-slick">
+                        @foreach($partners as $partner)
+                            <section class="d-flex flex-column justify-content-center align-items-center">
+                                <img class="layout-image img-fluid rounded" src="{{ $partner['image'] }}"
+                                     alt="{{ $partner['image'] }}">
+                                <p class="mt-1 text-center">{{ $partner['name'] }}</p>
+                            </section>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+
+        </article>
+
+
     </div>
 
 </main>
