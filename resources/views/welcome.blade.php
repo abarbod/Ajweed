@@ -50,12 +50,12 @@
 
             <div class="collapse navbar-collapse justify-content-center text-center" id="myTogglerNav">
                 <div class="navbar-nav mx-auto font-weight-regular text-uppercase">
-                    <a class="nav-item nav-link" href="#page-hero">الرئيسية</a>
-                    <a class="nav-item nav-link" href="#page-about">نبذة</a>
-                    <a class="nav-item nav-link" href="#page-mission">رسالتنا</a>
-                    <a class="nav-item nav-link" href="#page-objectives">أهدافنا</a>
-                    <a class="nav-item nav-link" href="#page-letter">كلمة أجاويد</a>
-                    <a class="nav-item nav-link" href="#page-partners">شركاء النجاح</a>
+                    <a class="nav-item nav-link" href="/#page-hero">الرئيسية</a>
+                    <a class="nav-item nav-link" href="/#page-about">نبذة</a>
+                    <a class="nav-item nav-link" href="/#page-mission">رسالتنا</a>
+                    <a class="nav-item nav-link" href="/#page-objectives">أهدافنا</a>
+                    <a class="nav-item nav-link" href="/#page-letter">كلمة أجاويد</a>
+                    <a class="nav-item nav-link" href="/#page-partners">شركاء النجاح</a>
                 </div>
 
                 <ul class="navbar-nav font-weight-regular text-uppercase">

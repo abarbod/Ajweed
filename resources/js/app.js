@@ -20,19 +20,40 @@ const app = new Vue({
     el: '#app'
 });
 
+
+/*********************************************************************************************************
+ *
+ * Front page navbar and scrolling.
+ *
+ *********************************************************************************************************/
+const scrollOffset = 100; //variable for menu height
+
+/**
+ * Add dark background to navbar when it is fixed to top.
+ */
+function toggleNavInBody() {
+    if ($(window).scrollTop() > 60) {
+        $('.site-nav').addClass('inbody')
+    } else {
+        $('.site-nav').removeClass('inbody')
+    }
+}
+
+$(window).on('load', toggleNavInBody);
+
+// Scroll to page if there is hash in url.
+$(window).on('load', function () {
+    const target = $(location.hash);
+    if (target.length > 0) {
+        $(window).scrollTop(target.offset().top - scrollOffset).scrollLeft(target.offset().left);
+    }
+});
+
 $(function () {
-    const scrollOffset = 100; //variable for menu height
 
     // Change nav background color on scroll and on load.
-    $(window).on('scroll load', function () {
-
-        console.log('WINDOW EVENT');
-
-        if ($(this).scrollTop() > 60) {
-            $('.site-nav').addClass('inbody')
-        } else {
-            $('.site-nav').removeClass('inbody')
-        }
+    $(window).on('scroll', function () {
+        toggleNavInBody();
     });
 
     // Close nav bar on click (mobile)
@@ -41,10 +62,9 @@ $(function () {
     });
 
     //Use smooth scrolling when clicking on navigation
-    $('.navbar-nav a:not(.dropdown-toggle)').click(
-        function () {
+    $('.navbar-nav a:not(.dropdown-toggle)').click(function () {
 
-            if (
+            if (this.hash.length > 0 && // Do we have hash in url
                 location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') &&
                 location.hostname === this.hostname
             ) {
@@ -59,9 +79,10 @@ $(function () {
                         },
                         500
                     );
+                    location.hash = this.hash;
                     return false;
-                } //target.length
-            } //click function
+                }
+            }
         }
-    ); //smooth scrolling
-}); // Make sure Document loaded
+    );
+});
