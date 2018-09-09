@@ -31,7 +31,7 @@
 
 </head>
 
-<body dir="rtl" lang="ar">
+<body dir="rtl" lang="ar" data-spy="scroll" data-target=".site-nav" data-offset="100">
 
 <header id="page-hero" class="site-header d-flex flex-column align-content-between">
 
@@ -48,7 +48,7 @@
                 @include('vendor.nova.partials.logo')
             </a>
 
-            <div class="collapse navbar-collapse justify-content-center" id="myTogglerNav">
+            <div class="collapse navbar-collapse justify-content-center text-center" id="myTogglerNav">
                 <div class="navbar-nav mx-auto font-weight-regular text-uppercase">
                     <a class="nav-item nav-link" href="#page-hero">الرئيسية</a>
                     <a class="nav-item nav-link" href="#page-about">نبذة</a>
