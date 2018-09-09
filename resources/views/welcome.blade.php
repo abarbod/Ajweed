@@ -334,6 +334,30 @@ $events = \App\Models\Event::query()
 
 </main>
 
+<footer class="site-footer bg-reverse">
+
+    <div class="layout-social container py-5 d-flex justify-content-center">
+        <a class="text-reverse px-2" href="https://twitter.com">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a class="text-reverse px-2" href="https://facebook.com">
+            <i class="fab fa-facebook"></i>
+        </a>
+        <a class="text-reverse px-2" href="https://linkedin.com">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a class="text-reverse px-2" href="https://plus.google.com">
+            <i class="fab fa-google-plus"></i>
+        </a>
+        <a class="text-reverse px-2" href="https://www.flickr.com/">
+            <i class="fab fa-flickr"></i>
+        </a>
+        <a class="text-reverse px-2" href="https://www.youtube.com">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+
+</footer>
 
 <div id="app"></div>
 
