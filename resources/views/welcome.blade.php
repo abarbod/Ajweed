@@ -193,67 +193,63 @@ $partners = [
 
 ?>
 
-<main class="bg-light pt-3">
+<main class="container px-0 bg-light pt-3">
 
-    <div id="pages-container" class="container px-0">
+    @foreach($pages as $id => $page)
 
-        @foreach($pages as $id => $page)
+        <article id="{{$id}}" class="bg-white my-5">
 
-            <article id="{{$id}}" class="bg-white my-5">
+            <div class="row no-gutters">
 
-                <div class="row no-gutters">
+                <div class="page-title col-12 d-md-none p-2 text-center">
+                    <h3>{{ $page['title'] }}</h3>
+                </div>
 
-                    <div class="page-title col-12 d-md-none p-2 text-center">
-                        <h3>{{ $page['title'] }}</h3>
-                    </div>
+                <div class="page-content col-sm-12 col-md-6 order-last p-4">
+                    <div class="row">
+                        <div class="col-12 d-none d-md-block">
+                            <h3>{{ $page['title'] }}</h3>
+                        </div>
 
-                    <div class="page-content col-sm-12 col-md-6 order-last p-4">
-                        <div class="row">
-                            <div class="col-12 d-none d-md-block">
-                                <h3>{{ $page['title'] }}</h3>
-                            </div>
-
-                            <div class="col-12 m-2">
-                                {!!  $page['content'] !!}
-                            </div>
+                        <div class="col-12 m-2">
+                            {!!  $page['content'] !!}
                         </div>
                     </div>
-
-                    <div class="page-image col-sm-12 col-md-6 {{ $loop->iteration % 2 === 0 ? 'order-md-last' : '' }}">
-                        <img class="card-img-top" src="{{ $page['image'] }}" alt="{{ $page['title'] }}">
-                    </div>
-
                 </div>
 
-            </article>
+                <div class="page-image col-sm-12 col-md-6 {{ $loop->iteration % 2 === 0 ? 'order-md-last' : '' }}">
+                    <img class="card-img-top" src="{{ $page['image'] }}" alt="{{ $page['title'] }}">
+                </div>
 
-        @endforeach
-
-
-        <article id="page-partners" class="bg-white my-5">
-
-            <div class="page-title col-12 p-2 text-center">
-                <h3>شركاء النجاح</h3>
             </div>
-
-            <section class="row mx-4">
-                <div class="col">
-                    <div class="partners-slick">
-                        @foreach($partners as $partner)
-                            <section class="d-flex flex-column justify-content-center align-items-center">
-                                <img class="layout-image img-fluid rounded" src="{{ $partner['image'] }}"
-                                     alt="{{ $partner['image'] }}">
-                                <p class="mt-1 text-center">{{ $partner['name'] }}</p>
-                            </section>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
 
         </article>
 
+    @endforeach
 
-    </div>
+
+    <article id="page-partners" class="bg-white my-5">
+
+        <div class="page-title col-12 p-2 text-center">
+            <h3>شركاء النجاح</h3>
+        </div>
+
+        <section class="row mx-4">
+            <div class="col">
+                <div class="partners-slick">
+                    @foreach($partners as $partner)
+                        <section class="d-flex flex-column justify-content-center align-items-center">
+                            <img class="layout-image img-fluid rounded" src="{{ $partner['image'] }}"
+                                 alt="{{ $partner['image'] }}">
+                            <p class="mt-1 text-center">{{ $partner['name'] }}</p>
+                        </section>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
+    </article>
+
 
 </main>
 
