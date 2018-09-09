@@ -138,6 +138,59 @@ $pages = [
     ],
 ];
 
+$partners = [
+
+    [
+        'image' => asset('images/partners/scth.jpg'),
+        'name'  => 'الهيئة العامة للسياحة والتراث الوطني',
+    ],
+    [
+        'image' => asset('images/partners/gea.jpg'),
+        'name'  => 'الهيئة العامة للترفيه',
+    ],
+    [
+        'image' => asset('images/partners/Mobily.jpg'),
+        'name'  => 'موبايلي',
+    ],
+    [
+        'image' => asset('images/partners/sec.jpg'),
+        'name'  => 'الشركة السعودية للكهرباء',
+    ],
+    [
+        'image' => asset('images/partners/adhd.jpg'),
+        'name'  => 'الجمعية السعودية لاضطراب فرط الحركة وتشتت الانتباه',
+    ],
+    [
+        'image' => asset('images/partners/ts.jpg'),
+        'name'  => 'استوديو تكوين',
+    ],
+    [
+        'image' => asset('images/partners/unhcr.jpg'),
+        'name'  => 'المفوضية السامية للأمم المتحدة لشؤون اللاجئين',
+    ],
+    [
+        'image' => asset('images/partners/SP.jpg'),
+        'name'  => 'شركة مشاريع السعودية',
+    ],
+    [
+        'image' => asset('images/partners/sasa.jpg'),
+        'name'  => 'الجمعية العربية السعودية للثقافة والفنون',
+    ],
+    [
+        'image' => asset('images/partners/med.jpg'),
+        'name'  => 'مستشفى الملك عبدالله التخصصي للأطفال بالحرس الوطني',
+    ],
+    [
+        'image' => asset('images/partners/kls.jpg'),
+        'name'  => 'مركز قادة المعرفة للتدريب',
+    ],
+    [
+        'image' => asset('images/partners/tf.jpg'),
+        'name'  => 'جمعية أسر التوحد',
+    ],
+
+];
+
 ?>
 
 <main class="bg-light pt-3">

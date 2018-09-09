@@ -24,5 +24,6 @@ mix.sass('resources/sass/app-rtl.scss', 'public/css')
     });
 
 mix.copyDirectory('resources/images/front-page', 'public/images/front-page')
+    .copyDirectory('resources/images/partners', 'public/images/partners')
     .sourceMaps()
     .version(['public/css/app-rtl.css']);
