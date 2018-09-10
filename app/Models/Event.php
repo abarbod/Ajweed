@@ -2,26 +2,27 @@
 
 namespace App\Models;
 
+use App\Exceptions\ApplyingForClosedEventException;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int                        $id
+ * @property int $id
  * @property \Illuminate\Support\Carbon $created_at
- * @property string                     $name
- * @property string                     $description
- * @property string                     $location
+ * @property string $name
+ * @property string $description
+ * @property string $location
  * @property \Illuminate\Support\Carbon $start_at
  * @property \Illuminate\Support\Carbon $end_at
- * @property string                     $start_time
- * @property string                     $end_time
- * @property string                     $rewards
- * @property int                        $count_male
- * @property int                        $count_female
- * @property string                     $registration_status
+ * @property string $start_time
+ * @property string $end_time
+ * @property string $rewards
+ * @property int $count_male
+ * @property int $count_female
+ * @property string $registration_status
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $applicants
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Application[] $applications
- * @property \Carbon\Carbon             $published_at
- * @property \Carbon\Carbon             $updated_at
+ * @property \Carbon\Carbon $published_at
+ * @property \Carbon\Carbon $updated_at
  */
 class Event extends Model
 {
@@ -47,7 +48,7 @@ class Event extends Model
      */
     protected $casts = [
         'start_at' => 'date:Y-m-d',
-        'end_at' => 'date:Y-m-d',
+        'end_at'   => 'date:Y-m-d',
     ];
 
     /**
@@ -84,6 +85,23 @@ class Event extends Model
     public function applications()
     {
         return $this->hasMany(Application::class);
+    }
+
+    /**
+     * Apply to participate in this event by the given user.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     * @throws \App\Exceptions\ApplyingForClosedEventException
+     */
+    public function applyBy(User $user)
+    {
+        if ($this->registration_status === 'closed') {
+            throw new ApplyingForClosedEventException;
+        }
+
+        return $this->applicants()->sync($user, ['status' => 'processing']);
     }
 
 }
