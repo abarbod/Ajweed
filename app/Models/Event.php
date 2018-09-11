@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\UserAppliedToParticipate;
 use App\Exceptions\ApplyingForClosedEventException;
 use Illuminate\Database\Eloquent\Model;
 
@@ -101,7 +102,11 @@ class Event extends Model
             throw new ApplyingForClosedEventException;
         }
 
-        return $this->applicants()->sync($user, ['status' => 'processing']);
+        $this->applicants()->sync([$user->id], ['status' => 'processing']);
+
+        event(new UserAppliedToParticipate($user, $this));
+
+        return $this;
     }
 
 }
