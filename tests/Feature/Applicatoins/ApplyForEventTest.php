@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Applications;
 
+use App\Events\UserAppliedToParticipate;
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Support\Facades\Event as EventFacade;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -85,6 +87,32 @@ class ApplyForEventTest extends TestCase
         $this->assertCount(1, $user->fresh()->applications, 'There should be exactly one application for the user.');
     }
 
+    /** @test */
+    public function an_announcement_is_made_when_a_user_applies_to_participate_in_an_event()
+    {
+        // To fake laravel events. Events will not be actually fired.
+        EventFacade::fake();
+        // (1) Given we have a user
+        /** @var User $user */
+        $user = factory(User::class)->create();
+        // and an open event
+        /** @var Event $event */
+        $event = factory(Event::class)->create(['registration_status' => 'open']);
+        // (2) When the user applies to participate in the event.
+        $event->applyBy($user);
+        // (3) Then an event will be fired to announce the user's application to participate
+        EventFacade::assertDispatched(UserAppliedToParticipate::class,
+            function (UserAppliedToParticipate $userAppliedEvent) use ($user, $event) {
+
+                $this->assertTrue($user->is($userAppliedEvent->user),
+                    'The correct User is not attached to the announcement.');
+
+                $this->assertTrue($event->is($userAppliedEvent->event),
+                    'The correct event is not attached to the announcement.');
+
+                return true;
+            });
+    }
 
     /** @test */
     public function an_authenticated_user_can_apply_to_participate_in_an_event()
