@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::query()->updateOrCreate($attributes,
             factory(\App\Models\User::class)->raw($attributes));
 
+        $this->call(UsersTableSeeder::class);
         $this->call(EventsTableSeeder::class);
+        $this->call(ApplicationTableSeeder::class);
     }
 }
