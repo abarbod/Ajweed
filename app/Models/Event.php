@@ -102,7 +102,12 @@ class Event extends Model
             throw new ApplyingForClosedEventException;
         }
 
-        $this->applicants()->sync([$user->id], ['status' => 'processing']);
+        // If the user already applied to this event, we return.
+        if ($this->applicants()->where('user_id', $user->id)->exists()) {
+            return $this;
+        }
+
+        $this->applicants()->save($user, ['status' => 'processing']);
 
         event(new UserAppliedToParticipate($user, $this));
 
