@@ -90,5 +90,9 @@
     "Welcome Back!": "الإدارة",
     "Forgot your password?": "نسيت كلمة المرور؟",
     "Registration is closed for this event.": "التسجيل مغلق لهذه الفعالية.",
-    "Your application was withdrawn.": "تم سحب طلب للمشاركة في الفعالية."
+    "Your application was withdrawn.": "تم سحب طلب للمشاركة في الفعالية.",
+    "Applications": "طلبات المشاركة",
+    "Application": "طلب المشاركة",
+    "Applicant": "المتقدم",
+    "Status": "الحالة"
 }

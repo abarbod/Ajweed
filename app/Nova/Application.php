@@ -2,19 +2,20 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Profile extends Resource
+class Application extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\\Models\\Profile';
+    public static $model = \App\Models\Application::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -44,15 +45,21 @@ class Profile extends Resource
         return [
             ID::make()->sortable(),
 
-            Select::make(__('Gender'), 'gender')->options([
-                'male'   => __('Male'),
-                'female' => __('Female'),
-            ])->displayUsingLabels()
-                  ->rules(['required', 'in:male,female']),
+            BelongsTo::make(__('Applicant'), 'user', User::class)
+                     ->sortable(),
 
-            Date::make(__('Birth Date'), 'birth_date')
-                ->rules(['required', 'date', 'before:13 years ago']),
+            BelongsTo::make(__('Event'), 'event', Event::class)
+                     ->sortable(),
 
+            Select::make(__('Status'), 'status')
+                  ->options([
+                      'on-hold'    => __('on-hold'),
+                      'processing' => __('processing'),
+                      'rejected'   => __('rejected'),
+                      'accepted'   => __('accepted'),
+                      'withdrawn'  => __('withdrawn'),
+                  ])
+                  ->displayUsingLabels(),
         ];
     }
 
@@ -104,6 +111,7 @@ class Profile extends Resource
         return [];
     }
 
+
     /**
      * Get the displayble label of the resource.
      *
@@ -111,7 +119,7 @@ class Profile extends Resource
      */
     public static function label()
     {
-        return __('Profiles');
+        return __('Applications');
     }
 
     /**
@@ -121,30 +129,7 @@ class Profile extends Resource
      */
     public static function singularLabel()
     {
-        return __('Profile');
+        return __('Application');
     }
-
-    /**
-     * Determine if the given resource is authorizable.
-     * We disable Nova authorization until we build the authorization system.
-     *
-     * @return bool
-     */
-    public static function authorizable()
-    {
-        return false;
-    }
-
-    /**
-     * Determine if this resource is available for navigation.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return bool
-     */
-    public static function availableForNavigation(Request $request)
-    {
-        return false;
-    }
-
 
 }

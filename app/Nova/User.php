@@ -6,6 +6,7 @@ use App\Rules\SaudiOfficialId;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
@@ -121,6 +122,7 @@ class User extends Resource
 
             HasOne::make(__('Profile'), 'profile', Profile::class),
 
+            HasMany::make(__('Applications'), 'applications', Application::class),
         ];
     }
 
