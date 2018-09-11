@@ -27,6 +27,7 @@ class ApplyForEventTest extends TestCase
         $event->applyBy($user);
         // (3) Then a new application by the user will be created for this event.
         $this->assertCount(1, $user->applications, 'No application was created for the user.');
+        $this->assertTrue($user->is($event->applicants->first()), 'The event was not assigned the user as applicant.');
         $this->assertTrue($user->applications->first()->event->is($event),
             'Event associated with the application is not the correct one.');
     }
@@ -131,6 +132,7 @@ class ApplyForEventTest extends TestCase
         $response->assertStatus(201);
         $response->assertJsonFragment(['message' => 'ok']);
         $this->assertCount(1, $user->applications, 'No application was created for the user.');
+        $this->assertTrue($user->is($event->applicants->first()), 'The event was not assigned the user as applicant.');
         $this->assertTrue($user->applications->first()->event->is($event),
             'Event associated with the application is not the correct one.');
     }

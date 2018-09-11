@@ -53,4 +53,8 @@ $router->group(['middleware' => ['auth']], function (\Illuminate\Routing\Router 
     $router->delete('events/{event}/applications', 'Events\EventApplicationController@destroy')
            ->name('events.applications.destroy');
 
+    
+    $router->delete('applications/{application}', 'Users\ApplicationController@destroy')
+           ->name('applications.destroy');
+
 });
