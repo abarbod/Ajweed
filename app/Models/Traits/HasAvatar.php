@@ -88,7 +88,7 @@ trait HasAvatar
         // which will return a default image if the user is not registered with Gravatar.
         return sprintf('https://www.gravatar.com/avatar/%s?d=%s&s=%s',
             md5(strtolower(trim($this->email))),
-            'mm',
+            'identicon',
             $size
         );
     }

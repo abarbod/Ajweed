@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
-        'username'         => $faker->userName,
+        'username'         => $faker->unique()->userName,
         'first_name'       => $faker->firstName,
         'father_name'      => $faker->firstNameMale,
         'grandfather_name' => $faker->firstNameMale,
@@ -24,7 +24,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'email'            => $faker->unique()->safeEmail,
         'password'         => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token'   => str_random(10),
-        'official_id'      => $faker->numerify(rand(1, 2) . '#########'),
-        'mobile'           => $faker->numerify('05########'),
+        'official_id'      => $faker->unique()->numerify(rand(1, 2) . '#########'),
+        'mobile'           => $faker->unique()->numerify('05########'),
     ];
 });
