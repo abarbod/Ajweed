@@ -18,7 +18,7 @@ class CreateApplicationsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('event_id');
 
-            $table->enum('status', ['on-hold', 'processing', 'rejected', 'accepted']);
+            $table->enum('status', ['on-hold', 'processing', 'rejected', 'accepted', 'withdrawn']);
 
             $table->foreign('user_id')
                   ->references('id')->on('users')
