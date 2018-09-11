@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
@@ -26,7 +27,7 @@ class Event extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -35,6 +36,8 @@ class Event extends Resource
      */
     public static $search = [
         'id',
+        'name',
+        'location',
     ];
 
     /**
@@ -89,6 +92,8 @@ class Event extends Resource
                            $event->published_at = null;
                        }
                    }),
+
+            HasMany::make(__('Applications'), 'applications', Application::class),
 
         ];
     }
@@ -160,6 +165,26 @@ class Event extends Resource
     public static function singularLabel()
     {
         return __('Event');
+    }
+
+    /**
+     * Get the value that should be displayed to represent the resource.
+     *
+     * @return string
+     */
+    public function title()
+    {
+        return $this->start_at->format($this->name . ' F Y');
+    }
+
+    /**
+     * Get the value that should be displayed to represent the resource.
+     *
+     * @return string
+     */
+    public function subtitle()
+    {
+        return $this->location;
     }
 
 }
