@@ -22,5 +22,8 @@
     },
     "dependencies": {
         "slick-carousel": "^1.8.1"
+    },
+    "rtlcssConfig": {
+        "map": true
     }
 }

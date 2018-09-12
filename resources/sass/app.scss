@@ -1,23 +1,16 @@
-// Fonts
+// import any google fonts specific to rtl
 @import "fonts";
 // Variables
 @import 'variables';
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-/*rtl:begin:ignore*/
-@import "~slick-carousel/slick/slick";
-@import "~slick-carousel/slick/slick-theme";
-/*rtl:end:ignore*/
+
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-// Put a red asterisk to required form field labels.
-label.required:after {
-    content: " *";
-    color: red;
+p {
+    font-family: 'Cairo', sans-serif;
 }
-
-@import "header";
-@import "front-page";

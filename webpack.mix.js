@@ -12,18 +12,36 @@ const exec = require("child_process").exec;
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+// Site javascript.
+mix.js('resources/js/app.js', 'public/js');
 
-mix.sass('resources/sass/app-rtl.scss', 'public/css')
+// Site css.
+mix.sass('resources/sass/app.scss', 'public/css')
     .then(() => {
-        exec('node_modules/rtlcss/bin/rtlcss.js public/css/app-rtl.css ./public/css/app-rtl.css');
-    })
-    .then(() => {
-        exec('node_modules/rtlcss/bin/rtlcss.js ./public/nova-assets/app.css ./public/nova-assets/app-rtl.css');
+        exec('node_modules/rtlcss/bin/rtlcss.js public/css/app.css public/css/app.css');
     });
 
+// Front page css.
+mix.sass('resources/sass/front-page.scss', 'public/css')
+    .then(() => {
+        exec('node_modules/rtlcss/bin/rtlcss.js public/css/front-page.css public/css/front-page.css');
+    });
+
+// Nova rtl css.
+mix.then(() => {
+    exec('node_modules/rtlcss/bin/rtlcss.js ./public/nova-assets/app.css ./public/nova-assets/app-rtl.css');
+});
+
+mix.version();
+
+// Copy files to the public directory.
 mix.copyDirectory('resources/images/front-page', 'public/images/front-page')
-    .copyDirectory('resources/images/partners', 'public/images/partners')
-    .sourceMaps()
-    .version(['public/css/app-rtl.css']);
+    .copyDirectory('resources/images/partners', 'public/images/partners');
+
+// Source maps.
+if (!mix.inProduction()) {
+    mix.webpackConfig({
+        devtool: 'source-map'
+    })
+        .sourceMaps()
+}
