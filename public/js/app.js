@@ -50595,14 +50595,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/sass/app-rtl.scss":
+/***/ "./resources/sass/app.scss":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
+/***/ "./resources/sass/front-page.scss":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -50614,7 +50614,7 @@ module.exports = Component.exports
 
 __webpack_require__("./resources/js/app.js");
 __webpack_require__("./resources/sass/app.scss");
-module.exports = __webpack_require__("./resources/sass/app-rtl.scss");
+module.exports = __webpack_require__("./resources/sass/front-page.scss");
 
 
 /***/ })

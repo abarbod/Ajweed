@@ -1,5 +1,49 @@
-/* Load fonts */
-@import url('https://fonts.googleapis.com/css?family=Merriweather:300|Source+Sans+Pro:200,400,600');
+// Fonts
+@import "fonts";
+
+// Variables
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: "Cairo", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+$headings-color: #2A3B8F;
+$headings-font-weight: 900;
+
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+// Slick
+$slick-arrow-color: #2A3B8F !default;
+$slick-prev-character: "\2190" !default;
+$slick-next-character: "\2192" !default;
+
+$slick-dot-color: #2A3B8F !default;
+$slick-dot-character: "\026AC" !default;
+$slick-dot-size: 30px !default;
+$slick-dot-color-active: $slick-dot-color !default;
+
+$slick-opacity-default: 0.75 !default;
+$slick-opacity-on-hover: 1 !default;
+$slick-opacity-not-active: 0.25 !default;
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+/*rtl:begin:ignore*/
+@import "~slick-carousel/slick/slick";
+@import "~slick-carousel/slick/slick-theme";
+/*rtl:end:ignore*/
 
 /* Variables */
 
@@ -20,7 +64,7 @@
     //--font-weight-light: 200 !important;
     --color-medium: #ddd;
     --color-reverse: var(--gray-dark);
-    --color-text: var(--gray-dark);
+    --color-text: #1D76BB;
     --color-text-reverse: var(--light);
     --font-family-title: var(--font-family-sans-serif);
     --font-family-text: var(--font-family-serif);
@@ -30,8 +74,12 @@ body {
     font-family: var(--font-family-text);
     color: var(--color-text);
     font-weight: 200;
+    position: relative; // important for nav scrollspy
 }
 
+p {
+    font-family: var(--font-family-sans-serif);
+}
 /* Animation Styles */
 
 @keyframes fadein {
