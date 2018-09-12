@@ -88,7 +88,7 @@
                 <div class="col-11 col-sm-10 col-md-8 fadeInUp">
                     <h3 class="page-section-title text-reverse">أجاويد</h3>
                     <p class="page-section-text lead">في كل مكان وزمان</p>
-                    <a class="btn btn-outline-light" href="{{ url('/') }}">فعاليات أجاويد</a>
+                    <a class="btn btn-outline-light" href="{{ route('events.index') }}">فعاليات أجاويد</a>
                 </div>
             </div>
         </div>

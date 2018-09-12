@@ -21,21 +21,29 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body dir="rtl">
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+<div id="app">
+
+    <header class="main-header bg-secondary" style="height: 50vh">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top bg-dark">
+
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="/">
+                    @include('vendor.nova.partials.logo')
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
+                    <div class="navbar-nav ml-auto justify-content-center align-items-center">
+                        <a class="nav-item nav-link active" href="{{ route('events.index') }}">@lang('Events')</a>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -48,9 +56,11 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
-                            <img class="rounded-circle d-md-block" width="45px" height="45px" src="{{ auth()->user()->avatarUrl() }}" alt="{{ auth()->user()->name }}">
+                            <img class="rounded-circle d-md-block" width="45px" height="45px"
+                                 src="{{ auth()->user()->avatarUrl() }}" alt="{{ auth()->user()->name }}">
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -68,7 +78,8 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -78,11 +89,13 @@
                 </div>
             </div>
         </nav>
+    </header>
 
-        <main class="py-4">
-            @include('layouts._session-alerts')
-            @yield('content')
-        </main>
-    </div>
+
+    <main class="py-4">
+        @include('layouts._session-alerts')
+        @yield('content')
+    </main>
+</div>
 </body>
 </html>
