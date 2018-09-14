@@ -27,3 +27,7 @@ mix.copyDirectory('resources/images/front-page', 'public/images/front-page')
     .copyDirectory('resources/images/partners', 'public/images/partners')
     .sourceMaps()
     .version(['public/css/app-rtl.css']);
+
+mix.then(() => {
+    exec('node_modules/rtlcss/bin/rtlcss.js resources/views/vendor/mail/html/themes/default.css resources/views/vendor/mail/html/themes/default-rtl.css')
+});
