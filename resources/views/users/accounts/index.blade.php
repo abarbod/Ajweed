@@ -17,12 +17,42 @@
 
     <div class="card mb-3">
         <div class="card-header">@lang('My Account')</div>
-
-        <div class="card-body">
-            <h5 class="card-title mb-3">@lang('Username'): {{ $user->username }}</h5>
-            <h5 class="card-title mb-3">@lang('Email Address'): {{ $user->email }}</h5>
-            <h5 class="card-title mb-3">@lang('Mobile Number'): {{ $user->mobile }}</h5>
-            <h5 class="card-title mb-3">@lang('Saudi Id / Iqama Id'): {{ $user->official_id }}</h5>
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="profile-field-label">@lang('Username')</span>
+                                <br>
+                                <span class="profile-field-value">{{ $user->username }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="profile-field-label">@lang('Email Address')</span>
+                                <br>
+                                <span class="profile-field-value">{{ $user->email }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="profile-field-label">@lang('Mobile Number')</span>
+                                <br>
+                                <span class="profile-field-value">{{ $user->mobile }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="profile-field-label">@lang('Saudi Id / Iqama Id')</span>
+                                <br>
+                                <span class="profile-field-value">{{ $user->official_id }}</span>
+                            </td>
+                        </tr>
+                        <tr><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
