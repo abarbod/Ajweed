@@ -28,7 +28,7 @@ class CreateProfilesTable extends Migration
             $table->text('skills')->nullable();
             $table->text('experiences')->nullable();
             $table->string('twitter', 100)->nullable();
-            $table->string('instegram', 100)->nullable();
+            $table->string('instagram', 100)->nullable();
 
             $table->foreign('user_id')
                   ->references('id')->on('users')

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string         $skills
  * @property string         $experiences
  * @property string         $twitter
- * @property string         $instegram
+ * @property string         $instagram
  * @property User           $user
  */
 class Profile extends Model
@@ -41,7 +41,7 @@ class Profile extends Model
         'skills',
         'experiences',
         'twitter',
-        'instegram',
+        'instagram',
     ];
 
     /**

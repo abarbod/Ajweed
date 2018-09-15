@@ -67,6 +67,6 @@ $factory->define(App\Models\Profile::class, function (Faker $faker) {
         'skills'          => implode(',', $faker->randomElements($skills, rand(1, count($skills) - 1))),
         'experiences'     => $faker->sentences(3, true),
         'twitter'         => $faker->optional(0.2)->userName, // 20% chance will get a username.
-        'instegram'       => $faker->optional(0.2)->userName,
+        'instagram'       => $faker->optional(0.2)->userName,
     ];
 });

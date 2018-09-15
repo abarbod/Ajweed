@@ -3,6 +3,8 @@
 
 /** @var \Illuminate\Routing\Router $router */
 
+use Illuminate\Routing\Router;
+
 $router->get('/', function () {
     return view('welcome');
 });
@@ -13,9 +15,22 @@ $router->get('mobile/verify', 'Auth\VerificationController@showMobile')->name('v
 $router->get('mobile/verify/{id}', 'Auth\VerificationController@verifyMobile')->name('verification.verify-mobile');
 $router->get('mobile/resend', 'Auth\VerificationController@resendMobile')->name('verification.resend-mobile');
 
-$router->get('/account', 'Users\AccountController@index')
-       ->middleware(['auth', 'verified-mobile'])
-       ->name('users.account.index');
+
+$router->group(['middleware' => ['auth', 'verified-mobile']], function (Router $router) {
+
+    $router->get('/account', 'Users\AccountController@index')
+           ->name('users.account.index');
+
+    $router->get('/details', 'Users\DetailsController@index')
+           ->name('users.details.index');
+
+    $router->get('/details/edit', 'Users\DetailsController@edit')
+           ->name('users.details.edit');
+
+    $router->put('/details/update', 'Users\DetailsController@update')
+           ->name('users.details.update');
+});
+
 
 // Profile routes. (We use the user routeKey, {user} = routeKey)
 $router->get('profile/edit', 'Users\ProfileController@edit')
@@ -53,7 +68,7 @@ $router->group(['middleware' => ['auth']], function (\Illuminate\Routing\Router 
     $router->delete('events/{event}/applications', 'Events\EventApplicationController@destroy')
            ->name('events.applications.destroy');
 
-    
+
     $router->delete('applications/{application}', 'Users\ApplicationController@destroy')
            ->name('applications.destroy');
 

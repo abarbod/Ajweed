@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class AccountController extends Controller
 {
