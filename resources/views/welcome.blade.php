@@ -172,7 +172,7 @@ $events = \App\Models\Event::query()
 
 ?>
 
-<main class="container px-0 bg-light pt-3">
+<main class="container px-0 pt-3">
 
     @foreach($pages as $id => $page)
 
