@@ -23,7 +23,7 @@
 <body dir="rtl">
 <div id="app">
 
-    <header class="main-header bg-secondary" style="height: 50vh">
+    <header class="main-header bg-secondary">
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top bg-dark">
 
