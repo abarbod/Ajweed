@@ -6,7 +6,8 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: "Cairo", sans-serif;
+$font-family-sans-serif: "Cairo",
+sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 $headings-color: #2A3B8F;
@@ -54,10 +55,10 @@ $slick-opacity-not-active: 0.25 !default;
     --gray: #7d7d7d;
     --gray-dark: #404040;
     --font-family-sans-serif: 'Cairo', -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+        Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     --font-family-serif: 'AraHamah', 'Times New Roman',
-    serif;
+        serif;
 
     /* Page Variables */
 
@@ -80,12 +81,14 @@ body {
 p {
     font-family: var(--font-family-sans-serif);
 }
+
 /* Animation Styles */
 
 @keyframes fadein {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -95,6 +98,7 @@ p {
     from {
         opacity: 1;
     }
+
     to {
         opacity: 0;
     }
@@ -202,9 +206,9 @@ p {
     }
 }
 
-.site-nav.inbody {
-    background: rgba(56, 56, 56, 0.9);
-}
+// .site-nav.inbody {
+//     background: rgba(56, 56, 56, 0.9);
+// }
 
 .site-header .jumbotron {
     min-height: 50vh;
@@ -269,11 +273,9 @@ p {
 /* Layout Nested */
 
 #page-nested {
-    background: linear-gradient(
-            135deg,
-            var(--gray),
-            var(--gray-dark)
-    );
+    background: linear-gradient(135deg,
+        var(--gray),
+        var(--gray-dark));
 }
 
 #page-nested .layout-image {
@@ -298,11 +300,9 @@ p {
 /* Layout Float */
 
 #page-floater {
-    background: radial-gradient(
-            ellipse at left,
-            var(--gray) 0,
-            var(--gray-dark) 100%
-    );
+    background: radial-gradient(ellipse at left,
+        var(--gray) 0,
+        var(--gray-dark) 100%);
     padding: 8em 0;
 }
 

@@ -16031,7 +16031,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.10';
+  var VERSION = '4.17.11';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -16295,7 +16295,7 @@ return jQuery;
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
 
   /** Used to assign default `context` object properties. */
   var contextProps = [
@@ -17241,20 +17241,6 @@ return jQuery;
       }
     }
     return result;
-  }
-
-  /**
-   * Gets the value at `key`, unless `key` is "__proto__".
-   *
-   * @private
-   * @param {Object} object The object to query.
-   * @param {string} key The key of the property to get.
-   * @returns {*} Returns the property value.
-   */
-  function safeGet(object, key) {
-    return key == '__proto__'
-      ? undefined
-      : object[key];
   }
 
   /**
@@ -19714,7 +19700,7 @@ return jQuery;
           if (isArguments(objValue)) {
             newValue = toPlainObject(objValue);
           }
-          else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+          else if (!isObject(objValue) || isFunction(objValue)) {
             newValue = initCloneObject(srcValue);
           }
         }
@@ -22635,6 +22621,22 @@ return jQuery;
         array[length] = isIndex(index, arrLength) ? oldArray[index] : undefined;
       }
       return array;
+    }
+
+    /**
+     * Gets the value at `key`, unless `key` is "__proto__".
+     *
+     * @private
+     * @param {Object} object The object to query.
+     * @param {string} key The key of the property to get.
+     * @returns {*} Returns the property value.
+     */
+    function safeGet(object, key) {
+      if (key == '__proto__') {
+        return;
+      }
+
+      return object[key];
     }
 
     /**
@@ -50348,10 +50350,10 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__("./resources/js/components/ExampleComponent.vue"));
+Vue.component("example-component", __webpack_require__("./resources/js/components/ExampleComponent.vue"));
 
 var app = new Vue({
-    el: '#app'
+    el: "#app"
 });
 
 /*********************************************************************************************************
@@ -50364,18 +50366,18 @@ var scrollOffset = 100; //variable for menu height
 /**
  * Add dark background to navbar when it is fixed to top.
  */
-function toggleNavInBody() {
-    if ($(window).scrollTop() > 60) {
-        $('.site-nav').addClass('inbody');
-    } else {
-        $('.site-nav').removeClass('inbody');
-    }
-}
+// function toggleNavInBody() {
+//     if ($(window).scrollTop() > 60) {
+//         $('.site-nav').addClass('shadow-lg')
+//     } else {
+//         $('.site-nav').removeClass('shadow-lg')
+//     }
+// }
 
-$(window).on('load', toggleNavInBody);
+// $(window).on("load", toggleNavInBody);
 
 // Scroll to page if there is hash in url.
-$(window).on('load', function () {
+$(window).on("load", function () {
     var target = $(location.hash);
     if (target.length > 0) {
         $(window).scrollTop(target.offset().top - scrollOffset).scrollLeft(target.offset().left);
@@ -50383,26 +50385,24 @@ $(window).on('load', function () {
 });
 
 $(function () {
-
     // Change nav background color on scroll and on load.
-    $(window).on('scroll', function () {
-        toggleNavInBody();
+    $(window).on("scroll", function () {
+        //toggleNavInBody();
     });
 
     // Close nav bar on click (mobile)
-    $('.nav-link').on('click', function () {
-        $('.navbar-collapse').collapse('hide');
+    $(".nav-link").on("click", function () {
+        $(".navbar-collapse").collapse("hide");
     });
 
     //Use smooth scrolling when clicking on navigation
-    $('.navbar-nav a:not(.dropdown-toggle)').click(function () {
-
+    $(".navbar-nav a:not(.dropdown-toggle)").click(function () {
         if (this.hash.length > 0 && // Do we have hash in url
-        location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+        location.pathname.replace(/^\//, "") === this.pathname.replace(/^\//, "") && location.hostname === this.hostname) {
             var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            target = target.length ? target : $("[name=" + this.hash.slice(1) + "]");
             if (target.length) {
-                $('html,body').animate({
+                $("html,body").animate({
                     scrollTop: target.offset().top - scrollOffset
                 }, 500);
                 location.hash = this.hash;
@@ -50415,7 +50415,7 @@ $(function () {
 
 
 $(document).ready(function () {
-    $('.partners-slick').slick({
+    $(".partners-slick").slick({
         rtl: true,
         dots: true,
         infinite: true,
@@ -50442,10 +50442,12 @@ $(document).ready(function () {
                 slidesToShow: 1,
                 slidesToScroll: 1
             }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
         }]
-
     });
-    $('.events-slick').slick({
+    $(".events-slick").slick({
         rtl: true,
         dots: true,
         arrows: false,
@@ -50478,8 +50480,10 @@ $(document).ready(function () {
                 arrows: true,
                 dots: true
             }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
         }]
-
     });
 });
 
