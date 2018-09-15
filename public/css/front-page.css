@@ -10808,10 +10808,10 @@ a.text-dark:focus {
   --gray: #7d7d7d;
   --gray-dark: #404040;
   --font-family-sans-serif: 'Cairo', -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+        Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --font-family-serif: 'AraHamah', 'Times New Roman',
-    serif;
+        serif;
   /* Page Variables */
   --color-medium: #ddd;
   --color-reverse: var(--gray-dark);
@@ -10974,10 +10974,6 @@ p {
 
 .site-nav .navbar-brand {
   font-size: 2rem;
-}
-
-.site-nav.inbody {
-  background: rgba(56, 56, 56, 0.9);
 }
 
 .site-header .jumbotron {

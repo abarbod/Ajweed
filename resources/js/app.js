@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14,12 +14,14 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component(
+    "example-component",
+    require("./components/ExampleComponent.vue")
+);
 
 const app = new Vue({
-    el: '#app'
+    el: "#app"
 });
-
 
 /*********************************************************************************************************
  *
@@ -31,67 +33,67 @@ const scrollOffset = 100; //variable for menu height
 /**
  * Add dark background to navbar when it is fixed to top.
  */
-function toggleNavInBody() {
-    if ($(window).scrollTop() > 60) {
-        $('.site-nav').addClass('inbody')
-    } else {
-        $('.site-nav').removeClass('inbody')
-    }
-}
+// function toggleNavInBody() {
+//     if ($(window).scrollTop() > 60) {
+//         $('.site-nav').addClass('shadow-lg')
+//     } else {
+//         $('.site-nav').removeClass('shadow-lg')
+//     }
+// }
 
-$(window).on('load', toggleNavInBody);
+// $(window).on("load", toggleNavInBody);
 
 // Scroll to page if there is hash in url.
-$(window).on('load', function () {
+$(window).on("load", function() {
     const target = $(location.hash);
     if (target.length > 0) {
-        $(window).scrollTop(target.offset().top - scrollOffset).scrollLeft(target.offset().left);
+        $(window)
+            .scrollTop(target.offset().top - scrollOffset)
+            .scrollLeft(target.offset().left);
     }
 });
 
-$(function () {
-
+$(function() {
     // Change nav background color on scroll and on load.
-    $(window).on('scroll', function () {
-        toggleNavInBody();
+    $(window).on("scroll", function() {
+        //toggleNavInBody();
     });
 
     // Close nav bar on click (mobile)
-    $('.nav-link').on('click', function () {
-        $('.navbar-collapse').collapse('hide');
+    $(".nav-link").on("click", function() {
+        $(".navbar-collapse").collapse("hide");
     });
 
     //Use smooth scrolling when clicking on navigation
-    $('.navbar-nav a:not(.dropdown-toggle)').click(function () {
-
-            if (this.hash.length > 0 && // Do we have hash in url
-                location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') &&
-                location.hostname === this.hostname
-            ) {
-                let target = $(this.hash);
-                target = target.length
-                    ? target
-                    : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html,body').animate(
-                        {
-                            scrollTop: target.offset().top - scrollOffset
-                        },
-                        500
-                    );
-                    location.hash = this.hash;
-                    return false;
-                }
+    $(".navbar-nav a:not(.dropdown-toggle)").click(function() {
+        if (
+            this.hash.length > 0 && // Do we have hash in url
+            location.pathname.replace(/^\//, "") ===
+                this.pathname.replace(/^\//, "") &&
+            location.hostname === this.hostname
+        ) {
+            let target = $(this.hash);
+            target = target.length
+                ? target
+                : $("[name=" + this.hash.slice(1) + "]");
+            if (target.length) {
+                $("html,body").animate(
+                    {
+                        scrollTop: target.offset().top - scrollOffset
+                    },
+                    500
+                );
+                location.hash = this.hash;
+                return false;
             }
         }
-    );
+    });
 });
 
+import "slick-carousel";
 
-import 'slick-carousel';
-
-$(document).ready(function () {
-    $('.partners-slick').slick({
+$(document).ready(function() {
+    $(".partners-slick").slick({
         rtl: true,
         dots: true,
         infinite: true,
@@ -121,14 +123,13 @@ $(document).ready(function () {
                     slidesToShow: 1,
                     slidesToScroll: 1
                 }
-            },
+            }
             // You can unslick at a given breakpoint now by adding:
             // settings: "unslick"
             // instead of a settings object
         ]
-
     });
-    $('.events-slick').slick({
+    $(".events-slick").slick({
         rtl: true,
         dots: true,
         arrows: false,
@@ -162,13 +163,12 @@ $(document).ready(function () {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     arrows: true,
-                    dots: true,
+                    dots: true
                 }
-            },
+            }
             // You can unslick at a given breakpoint now by adding:
             // settings: "unslick"
             // instead of a settings object
         ]
-
     });
 });
