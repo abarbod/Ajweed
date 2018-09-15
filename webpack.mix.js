@@ -32,11 +32,11 @@ mix.then(() => {
     exec('node_modules/rtlcss/bin/rtlcss.js ./public/nova-assets/app.css ./public/nova-assets/app-rtl.css');
 });
 
-mix.version();
-
 // Copy files to the public directory.
 mix.copyDirectory('resources/images/front-page', 'public/images/front-page')
     .copyDirectory('resources/images/partners', 'public/images/partners');
+
+mix.version();
 
 // Source maps.
 if (!mix.inProduction()) {
@@ -45,3 +45,7 @@ if (!mix.inProduction()) {
     })
         .sourceMaps()
 }
+
+mix.then(() => {
+    exec('node_modules/rtlcss/bin/rtlcss.js resources/views/vendor/mail/html/themes/default.css resources/views/vendor/mail/html/themes/default-rtl.css')
+});
