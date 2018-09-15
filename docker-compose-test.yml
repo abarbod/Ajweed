@@ -1,0 +1,14 @@
+version: '2'
+services:
+  app_test:
+    image: vessel/app
+    environment:
+      CONTAINER_ENV: "${APP_ENV}"
+      XDEBUG_HOST: "${XDEBUG_HOST}"
+      WWWUSER: "${WWWUSER}"
+    volumes:
+    - .:/var/www/html
+    networks:
+    - vessel
+    depends_on:
+    - mysql
