@@ -23,6 +23,12 @@ $router->group(['middleware' => ['auth', 'verified-mobile']], function (Router $
 
     $router->get('/details', 'Users\DetailsController@index')
            ->name('users.details.index');
+
+    $router->get('/details/edit', 'Users\DetailsController@edit')
+           ->name('users.details.edit');
+
+    $router->put('/details/update', 'Users\DetailsController@update')
+           ->name('users.details.update');
 });
 
 

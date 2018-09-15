@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between bg-transparent">
             <div>@lang('My Profile')</div>
-            <a href="{{ route('users.profile.edit') }}">@lang('Edit')</a>
+            <a href="{{ route('users.details.edit') }}">@lang('Edit')</a>
         </div>
 
         <div class="card-body">
@@ -73,7 +73,7 @@
 
             <div class="row">
                 <p class="col-6"><strong>@lang('Twitter'): </strong>{{ $user->profile->twitter ?? '-' }}</p>
-                <p class="col-6"><strong>@lang('Instagram'): </strong>{{ $user->profile->instegram ?? '-' }}</p>
+                <p class="col-6"><strong>@lang('Instagram'): </strong>{{ $user->profile->instagram ?? '-' }}</p>
             </div>
 
         </div>
