@@ -23,7 +23,7 @@
 <body dir="rtl">
 <div id="app">
 
-    <header class="main-header bg-secondary" style="height: 50vh">
+    <header class="main-header bg-secondary">
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top bg-dark">
 
@@ -93,7 +93,21 @@
 
 
     <main class="py-4">
+
+        @if (session('status'))
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @include('layouts._session-alerts')
+
         @yield('content')
     </main>
 </div>
