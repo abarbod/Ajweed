@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="container mb-3">
-        <nav class="nav nav-pills nav-justified">
+    <div class="container mb-3 col-md-12">
+        <nav class="nav nav-pills nav-justified bg-white">
             <a class="nav-item nav-link {{ Request::routeIs('users.account.*') ? 'active': '' }}"
                href="{{ route('users.account.index') }}">@lang('My Account')</a>
 
