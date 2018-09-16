@@ -42,11 +42,14 @@
         methods: {
 
             async fetchApplication() {
-                const vm = this;
-                const {data: {data: application}} = await axios.get(`/events/${this.eventId}/applications`)
-                    .catch(err => console.log(err));
-                vm.application = application;
-                vm.loading = false;
+                try {
+                    const {data: {data: application}} = await axios.get(`/events/${this.eventId}/applications`);
+                    this.application = application;
+                } catch (e) {
+                    this.application = null;
+                } finally {
+                    this.loading = false;
+                }
             },
 
             async apply() {
