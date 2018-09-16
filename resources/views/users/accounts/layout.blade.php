@@ -10,6 +10,9 @@
             <a class="nav-item nav-link {{ Request::routeIs('users.details.*') ? 'active': '' }}"
                href="{{ route('users.details.index') }}">@lang('Profile')</a>
 
+            <a class="nav-item nav-link {{ Request::routeIs('users.applications.*') ? 'active': '' }}"
+               href="{{ route('users.applications.index') }}">@lang('Applications')</a>
+
         </nav>
     </div>
 
