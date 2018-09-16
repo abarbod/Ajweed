@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Events;
 
+use App\Events\UserAppliedToParticipate;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
@@ -12,7 +13,7 @@ class EventApplicationController extends Controller
 {
 
     /**
-     * Get the user application for the given event.
+     * Get the user application(s?) for the given event.
      *
      * @param \App\Models\Event $event
      *
@@ -40,8 +41,11 @@ class EventApplicationController extends Controller
     {
         /** @var \App\Models\User $user */
         $user = auth()->user();
+        $application = $event->applyBy($user);
 
-        return (new ApplicationResource($event->applyBy($user)))
+        event(new UserAppliedToParticipate($user, $event));
+
+        return (new ApplicationResource($application))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }

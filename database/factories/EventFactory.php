@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Event;
 use Faker\Generator as Faker;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
@@ -29,3 +30,11 @@ $factory->define(App\Models\Event::class, function (Faker $faker) {
         'published_at'        => $faker->optional(0.75)->dateTimeThisYear,
     ];
 });
+
+$factory->state(Event::class, 'open', [
+    'registration_status' => 'open',
+]);
+
+$factory->state(Event::class, 'closed', [
+    'registration_status' => 'closed',
+]);

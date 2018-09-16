@@ -55,4 +55,18 @@ class Application extends Pivot
         return $this->update(['status' => 'withdrawn']);
     }
 
+    /**
+     * After withdrawn, if the user decides to reapply, we change the status back to processing..
+     *
+     * @return boolean
+     */
+    public function reapply()
+    {
+        if ($this->status !== 'withdrawn') {
+            return false;
+        }
+
+        return $this->update(['status' => 'processing']);
+    }
+
 }
