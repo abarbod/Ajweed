@@ -93,7 +93,7 @@ class Event extends Model
      *
      * @param \App\Models\User $user
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \App\Models\Application|\Illuminate\Database\Eloquent\Model
      * @throws \App\Exceptions\ApplyingForClosedEventException
      */
     public function applyBy(User $user)
@@ -107,11 +107,17 @@ class Event extends Model
             return $this;
         }
 
-        $this->applicants()->save($user, ['status' => 'processing']);
+        $application = Application::query()
+                                  ->make([
+                                      'user_id' => $user->id,
+                                      'status' => 'processing'
+                                  ]);
+
+        $this->applications()->save($application);
 
         event(new UserAppliedToParticipate($user, $this));
 
-        return $this;
+        return $application;
     }
 
 }

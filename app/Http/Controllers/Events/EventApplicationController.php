@@ -2,18 +2,38 @@
 
 namespace App\Http\Controllers\Events;
 
-use App\Exceptions\ApplyingForClosedEventException;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
 use App\Models\Event;
-use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class EventApplicationController extends Controller
 {
 
     /**
+     * Get the user application for the given event.
+     *
      * @param \App\Models\Event $event
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\ApplicationResource|\Illuminate\Http\JsonResponse
+     */
+    public function index(Event $event)
+    {
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        $application = $user->applications()->where('event_id', $event->id)->firstOrFail();
+
+        return new ApplicationResource($application);
+    }
+
+    /**
+     * Apply for an event.
+     *
+     * @param \App\Models\Event $event
+     *
+     * @return \Illuminate\Http\JsonResponse
      * @throws \App\Exceptions\ApplyingForClosedEventException
      */
     public function store(Event $event)
@@ -21,18 +41,26 @@ class EventApplicationController extends Controller
         /** @var \App\Models\User $user */
         $user = auth()->user();
 
-        $event->applyBy($user);
-
-        return response()->json(['message' => 'ok'], 201);
+        return (new ApplicationResource($event->applyBy($user)))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
-    public function destroy(Event $event)
+    /**
+     * To withdraw an application.
+     *
+     * @param \App\Models\Event $event
+     * @param \App\Models\Application $application
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(Event $event, Application $application)
     {
-        /** @var \App\Models\User $user */
-        $user = auth()->user();
+        $this->authorize('delete', $application);
 
-        $user->pendingEvents()->detach($event->id);
+        $application->withdraw();
 
-        return back()->with('alert-info', __('Your application was canceled.'));
+        return response()->json(['message' => __('Your application was withdrawn.')], Response::HTTP_ACCEPTED);
     }
 }

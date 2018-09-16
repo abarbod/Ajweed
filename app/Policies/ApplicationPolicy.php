@@ -58,7 +58,7 @@ class ApplicationPolicy
      */
     public function delete(User $user, Application $application)
     {
-        return $user->id === $application->id;
+        return $user->id === $application->user_id;
     }
 
     /**

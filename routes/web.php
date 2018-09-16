@@ -4,18 +4,19 @@
 /** @var \Illuminate\Routing\Router $router */
 
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
 
 $router->get('/', function () {
     return view('welcome');
 });
 
-\Illuminate\Support\Facades\Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true]);
 
 $router->get('mobile/verify', 'Auth\VerificationController@showMobile')->name('verification.notice-mobile');
 $router->get('mobile/verify/{id}', 'Auth\VerificationController@verifyMobile')->name('verification.verify-mobile');
 $router->get('mobile/resend', 'Auth\VerificationController@resendMobile')->name('verification.resend-mobile');
 
-
+// Account routes
 $router->group(['middleware' => ['auth', 'verified-mobile']], function (Router $router) {
 
     $router->get('/account', 'Users\AccountController@index')
@@ -56,20 +57,16 @@ $router->get('profile/{user}', 'Users\ProfileController@show')
 // Events routes
 $router->get('events', 'EventController@index')->name('events.index');
 $router->get('events/{event}', 'EventController@show')->name('events.show');
-$router->post('auth/register', 'Auth\RegisterController@update_avatar');
-
 
 // Events applications routes
-$router->group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $router) {
+$router->group(['middleware' => ['auth']], function (Router $router) {
+
+    $router->get('events/{event}/applications', 'Events\EventApplicationController@index')
+           ->name('events.applications.index');
 
     $router->post('events/{event}/applications', 'Events\EventApplicationController@store')
            ->name('events.applications.store');
 
-    $router->delete('events/{event}/applications', 'Events\EventApplicationController@destroy')
+    $router->delete('events/{event}/applications/{application}', 'Events\EventApplicationController@destroy')
            ->name('events.applications.destroy');
-
-
-    $router->delete('applications/{application}', 'Users\ApplicationController@destroy')
-           ->name('applications.destroy');
-
 });

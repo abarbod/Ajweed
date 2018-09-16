@@ -3,6 +3,8 @@
 <?php
 /**
  * @var \App\Models\Event $event
+ * @var \App\Models\User $user
+ * @var \App\Models\Application $application
  */
 ?>
 
@@ -12,7 +14,7 @@
             <div class="col-md-8">
 
                 <div class="card mb-3">
-                    <div class="card-header">{{ $event->name }}</div>
+                    <div class="card-header bg-secondary text-white">{{ $event->name }}</div>
 
                     <div class="card-body">
                         <p><strong>@lang('Description'): </strong>{{ $event->description }}</p>
@@ -52,35 +54,6 @@
                             <dd class="col-sm-9">@lang($event->registration_status)
                             </dd>
 
-                            @if($event->registration_status === 'open')
-                                @if(auth()->check() && $event->applicants()->where('user_id', auth()->id())->exists())
-                                    <div class="col-12 mb-2">
-                                        <a href="#" class="btn btn-outline-danger"
-                                           onclick="event.preventDefault(); document.getElementById('events-cancel-application-form').submit()">
-                                            @lang('Cancel your application')
-                                        </a>
-                                    </div>
-                                    <form id="events-cancel-application-form"
-                                          action="{{ route('events.applications.destroy', $event) }}"
-                                          method="POST" style="display: none;">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                @else
-                                    <div class="col-12 mb-2">
-                                        <a href="#" class="btn btn-outline-success"
-                                           onclick="event.preventDefault(); document.getElementById('events-apply-form').submit()">
-                                            @lang('Apply')
-                                        </a>
-                                    </div>
-                                    <form id="events-apply-form"
-                                          action="{{ route('events.applications.store', $event) }}"
-                                          method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                @endif
-                            @endif
-
                             @unless(is_null($event->published_at))
                                 <dt class="col-sm-3">@lang('Date Published')</dt>
                                 <dd class="col-sm-9">{{ $event->published_at->toDateString() }}</dd>
@@ -90,6 +63,27 @@
 
                         </dl>
                     </div>
+
+                    <div class="card-footer bg-transparent d-flex justify-content-center">
+
+                        @if($event->registration_status === 'open')
+                            @if(auth()->check())
+                                <event-application-button
+                                    :user-id="{{ auth()->id() }}"
+                                    :event-id="{{ $event->id  }}"
+                                ></event-application-button>
+                            @else
+                                <a href="#" class="btn btn-lg btn-outline-secondary text-center"
+                                   onclick="event.preventDefault(); window.location = '/register'">
+                                    @lang('Join Ajaweed\'s team to participate in this event')
+                                </a>
+                            @endif
+                        @else
+                            <h3 class="text-center">@lang('Registration is closed for this event.')</h3>
+                        @endif
+
+                    </div>
+
                 </div>
 
             </div>

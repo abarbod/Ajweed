@@ -5,12 +5,12 @@ namespace Tests\Feature\Applications;
 use App\Events\UserAppliedToParticipate;
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event as EventFacade;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ApplyForEventTest extends TestCase
+class EventApplicationTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -130,7 +130,10 @@ class ApplyForEventTest extends TestCase
         $response = $this->postJson("events/{$event->getRouteKey()}/applications");
         // (3) We accept the request and create an application for the event by the user.
         $response->assertStatus(201);
-        $response->assertJsonFragment(['message' => 'ok']);
+        $response->assertJsonFragment([
+            'user_id'  => $user->id,
+            'event_id' => $event->id,
+        ]);
         $this->assertCount(1, $user->applications, 'No application was created for the user.');
         $this->assertTrue($user->is($event->applicants->first()), 'The event was not assigned the user as applicant.');
         $this->assertTrue($user->applications->first()->event->is($event),
@@ -173,5 +176,70 @@ class ApplyForEventTest extends TestCase
         $response->assertJsonFragment(['message' => __('Registration is closed for this event.')]);
         $this->assertCount(0, $user->applications, 'Application should not be created.');
     }
+
+
+    /** @test */
+    public function a_user_can_withdraw_his_application()
+    {
+        /** @var User $user */
+        $this->actingAs($user = factory(User::class)->create());
+        /** @var Event $event */
+        $event = factory(Event::class)->create(['registration_status' => 'open']);
+        $event->applyBy($user);
+        /** @var \App\Models\Application $application */
+        $this->assertTrue($event->applicants->first()->is($user));
+        $application = $user->fresh()->applications->first();
+
+        $response = $this->deleteJson("/events/{$event->getRouteKey()}/applications/{$application->getRouteKey()}");
+
+        $response->assertStatus(Response::HTTP_ACCEPTED);
+        $response->assertJsonFragment(['message' => __('Your application was withdrawn.')]);
+        $applicationStatus = $application->fresh()->status;
+        $this->assertTrue($applicationStatus === 'withdrawn',
+            "Expected application status withdrawn, got $applicationStatus");
+    }
+
+    /** @test */
+    public function only_authenticated_and_authorized_users_can_withdraw_applications()
+    {
+        /** @var User $user */
+        $user = factory(User::class)->create();
+        $event = factory(Event::class)->create(['registration_status' => 'open']);
+        $event->applyBy($user);
+
+        // Authentication
+        $response = $this->deleteJson("/events/{$event->getRouteKey()}/applications/{$user->applications->first()->getRouteKey()}");
+
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response->assertJsonFragment(['message' => 'Unauthenticated.']);
+
+        // Authorization
+        $this->actingAs(factory(User::class)->create());
+        $response = $this->deleteJson("/events/{$event->getRouteKey()}/applications/{$user->applications->first()->getRouteKey()}");
+
+        $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
+    }
+
+    /** @test */
+    public function an_applicant_can_get_his_application_for_an_event()
+    {
+        $this->actingAs($user = factory(User::class)->create());
+        $event = factory(Event::class)->create(['registration_status' => 'open']);
+        $application = $event->applyBy($user);
+
+        $response = $this->getJson("/events/{$event->getRouteKey()}/applications");
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJson([
+            'data' => [
+                'id'         => $application->id,
+                'user_id'    => $user->id,
+                'event_id'   => $event->id,
+                'created_at' => $application->created_at->toDateTimeString(),
+            ],
+        ]);
+    }
+
 
 }
