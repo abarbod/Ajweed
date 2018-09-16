@@ -27,6 +27,17 @@ class Application extends Pivot
      */
     protected $table = 'applications';
 
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'event',
+        'user',
+    ];
+
     /**
      * Relationship: An application belongs to an event.
      *

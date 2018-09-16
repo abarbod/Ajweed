@@ -30,6 +30,9 @@ $router->group(['middleware' => ['auth', 'verified-mobile']], function (Router $
 
     $router->put('/details/update', 'Users\DetailsController@update')
            ->name('users.details.update');
+
+    $router->get('/account/applications', 'Users\ApplicationController@index')
+           ->name('users.applications.index');
 });
 
 
