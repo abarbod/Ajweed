@@ -15,107 +15,6 @@ class EventApplicationTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_application_is_created_when_a_user_apply_for_an_event()
-    {
-        // (1) Given we have a user.
-        /** @var User $user */
-        $user = factory(User::class)->create();
-        // and we have an event open for registration.
-        /** @var Event $event */
-        $event = factory(Event::class)->create(['registration_status' => 'open']);
-        // (2) When a user apply for an event
-        $event->applyBy($user);
-        // (3) Then a new application by the user will be created for this event.
-        $this->assertCount(1, $user->applications, 'No application was created for the user.');
-        $this->assertTrue($user->is($event->applicants->first()), 'The event was not assigned the user as applicant.');
-        $this->assertTrue($user->applications->first()->event->is($event),
-            'Event associated with the application is not the correct one.');
-    }
-
-    /** @test */
-    public function applying_to_closed_events_is_not_allowed()
-    {
-        // (1) Given we have an event closed for registration.
-        /** @var Event $event */
-        $event = factory(Event::class)->create(['registration_status' => 'closed']);
-        $this->assertTrue($event->registration_status === 'closed'); // Sanity check (make sure it's closed)
-        /** @var User $user */
-        $user = factory(User::class)->create();
-
-        try {
-            // (2) When a user apply for this event
-            $event->applyBy($user);
-            // (3) Then we throw an exception and do not create the application
-            $this->fail("Users should not be able to apply for closed events.");
-
-        } catch (\App\Exceptions\ApplyingForClosedEventException $exception) {
-        }
-
-        $this->assertCount(0, $user->applications, 'Application should not be created.');
-    }
-
-    /** @test */
-    public function new_applications_will_have_processing_status()
-    {
-        // (1) Given we have a user.
-        /** @var User $user */
-        $user = factory(User::class)->create();
-        // and we have an event open for registration.
-        /** @var Event $event */
-        $event = factory(Event::class)->create(['registration_status' => 'open']);
-        // (2) When a user apply for an event
-        $event->applyBy($user);
-
-        // (3) The created application will have processing status.
-        $this->assertEquals('processing', $user->applications->first()->status);
-    }
-
-    /** @test */
-    public function users_can_apply_only_once_to_an_event()
-    {
-        // (1) Given we have a user.
-        /** @var User $user */
-        $user = factory(User::class)->create();
-        // And we have an event.
-        /** @var Event $event */
-        $event = factory(Event::class)->create(['registration_status' => 'open']);
-        // And the user has already applied to this event.
-        $event->applyBy($user);
-        $this->assertTrue($user->applications->first()->event->is($event));
-        // (2) When the user applies to the same event.
-        $event->applyBy($user);
-        // (3) Then no duplicate application is created
-        $this->assertCount(1, $user->fresh()->applications, 'There should be exactly one application for the user.');
-    }
-
-    /** @test */
-    public function an_announcement_is_made_when_a_user_applies_to_participate_in_an_event()
-    {
-        // To fake laravel events. Events will not be actually fired.
-        EventFacade::fake();
-        // (1) Given we have a user
-        /** @var User $user */
-        $user = factory(User::class)->create();
-        // and an open event
-        /** @var Event $event */
-        $event = factory(Event::class)->create(['registration_status' => 'open']);
-        // (2) When the user applies to participate in the event.
-        $event->applyBy($user);
-        // (3) Then an event will be fired to announce the user's application to participate
-        EventFacade::assertDispatched(UserAppliedToParticipate::class,
-            function (UserAppliedToParticipate $userAppliedEvent) use ($user, $event) {
-
-                $this->assertTrue($user->is($userAppliedEvent->user),
-                    'The correct User is not attached to the announcement.');
-
-                $this->assertTrue($event->is($userAppliedEvent->event),
-                    'The correct event is not attached to the announcement.');
-
-                return true;
-            });
-    }
-
-    /** @test */
     public function an_authenticated_user_can_apply_to_participate_in_an_event()
     {
         // (1) Given we have a signed in user.
@@ -241,5 +140,31 @@ class EventApplicationTest extends TestCase
         ]);
     }
 
+
+    /** @test */
+    public function an_announcement_is_made_when_a_user_applies_to_participate_in_an_event()
+    {
+        // To fake laravel events. Events will not be actually fired.
+        EventFacade::fake();
+        // (1) Given we have an authenticated user
+        $this->actingAs($user = factory(User::class)->create());
+        // and an open event
+        $event = factory(Event::class)->create(['registration_status' => 'open']);
+        // (2) When the user applies to participate in the event.
+        $this->postJson("events/{$event->getRouteKey()}/applications")
+             ->assertStatus(Response::HTTP_CREATED);
+        // (3) Then an event will be fired to announce the user's application to participate
+        EventFacade::assertDispatched(UserAppliedToParticipate::class,
+            function (UserAppliedToParticipate $userAppliedEvent) use ($user, $event) {
+
+                $this->assertTrue($user->is($userAppliedEvent->user),
+                    'The correct User is not attached to the announcement.');
+
+                $this->assertTrue($event->is($userAppliedEvent->event),
+                    'The correct event is not attached to the announcement.');
+
+                return true;
+            });
+    }
 
 }

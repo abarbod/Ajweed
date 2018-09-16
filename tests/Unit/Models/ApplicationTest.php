@@ -20,8 +20,29 @@ class ApplicationTest extends TestCase
         $application->withdraw();
 
         $this->assertDatabaseHas($application->getTable(), [
-            'status' => 'withdrawn'
+            'status' => 'withdrawn',
         ]);
     }
+
+    /** @test */
+    public function it_can_be_reapplied()
+    {
+        $application = factory(Application::class)->create(['status' => 'withdrawn']);
+
+        $application->reapply();
+
+        $this->assertEquals($application->status, 'processing');
+    }
+
+    /** @test */
+    public function only_withdrawn_applications_be_reapplied()
+    {
+        $application = factory(Application::class)->create(['status' => 'rejected']);
+
+        $application->reapply();
+
+        $this->assertEquals($application->status, 'rejected');
+    }
+
 
 }

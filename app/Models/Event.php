@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\UserAppliedToParticipate;
 use App\Exceptions\ApplyingForClosedEventException;
 use Illuminate\Database\Eloquent\Model;
 
@@ -93,7 +92,8 @@ class Event extends Model
      *
      * @param \App\Models\User $user
      *
-     * @return \App\Models\Application|\Illuminate\Database\Eloquent\Model
+     * @var \App\Models\Application $application
+     * @return Application|Model
      * @throws \App\Exceptions\ApplyingForClosedEventException
      */
     public function applyBy(User $user)
@@ -102,22 +102,20 @@ class Event extends Model
             throw new ApplyingForClosedEventException;
         }
 
-        // If the user already applied to this event, we return.
-        if ($this->applicants()->where('user_id', $user->id)->exists()) {
-            return $this;
+        // If the user already applied to this event, we reapply using the same application.
+        if ($application = $this->applications()->where('user_id', $user->id)->first()) {
+            $application->reapply();
+
+            return $application;
         }
 
         $application = Application::query()
                                   ->make([
                                       'user_id' => $user->id,
-                                      'status' => 'processing'
+                                      'status'  => 'processing',
                                   ]);
 
-        $this->applications()->save($application);
-
-        event(new UserAppliedToParticipate($user, $this));
-
-        return $application;
+        return $this->applications()->save($application);
     }
 
 }
