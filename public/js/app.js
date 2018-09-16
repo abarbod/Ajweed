@@ -1686,31 +1686,42 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     methods: {
         fetchApplication: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-                var vm, _ref2, application;
+                var _ref2, application;
 
                 return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                     while (1) {
                         switch (_context.prev = _context.next) {
                             case 0:
-                                vm = this;
+                                _context.prev = 0;
                                 _context.next = 3;
-                                return axios.get('/events/' + this.eventId + '/applications').catch(function (err) {
-                                    return console.log(err);
-                                });
+                                return axios.get('/events/' + this.eventId + '/applications');
 
                             case 3:
                                 _ref2 = _context.sent;
                                 application = _ref2.data.data;
 
-                                vm.application = application;
-                                vm.loading = false;
+                                this.application = application;
+                                _context.next = 11;
+                                break;
 
-                            case 7:
+                            case 8:
+                                _context.prev = 8;
+                                _context.t0 = _context['catch'](0);
+
+                                this.application = null;
+
+                            case 11:
+                                _context.prev = 11;
+
+                                this.loading = false;
+                                return _context.finish(11);
+
+                            case 14:
                             case 'end':
                                 return _context.stop();
                         }
                     }
-                }, _callee, this);
+                }, _callee, this, [[0, 8, 11, 14]]);
             }));
 
             function fetchApplication() {
