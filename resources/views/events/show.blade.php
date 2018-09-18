@@ -3,6 +3,8 @@
 <?php
 /**
  * @var \App\Models\Event $event
+ * @var \App\Models\User $user
+ * @var \App\Models\Application $application
  */
 ?>
 
@@ -121,6 +123,23 @@
                         @endif
                         @endif
                     </div>
+
+                    <div class="card-footer bg-transparent d-flex justify-content-center">
+
+                        @if($event->registration_status === 'open')
+                        @if(auth()->check())
+                        <event-application-button :user-id="{{ auth()->id() }}" :event-id="{{ $event->id  }}"></event-application-button>
+                        @else
+                        <a href="#" class="btn btn-lg btn-outline-secondary text-center" onclick="event.preventDefault(); window.location = '/register'">
+                            @lang('Join Ajaweed\'s team to participate in this event')
+                        </a>
+                        @endif
+                        @else
+                        <h3 class="text-center">@lang('Registration is closed for this event.')</h3>
+                        @endif
+
+                    </div>
+
                 </div>
             </div>
         </div>

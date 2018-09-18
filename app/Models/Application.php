@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property int               $id
- * @property int               $user_id
- * @property int               $event_id
- * @property string            $status of the application. Possible values: processing, on-hold, accepted, rejected.
- * @property \App\Models\User  $user owning the application.
+ * @property int $id
+ * @property int $user_id
+ * @property int $event_id
+ * @property string $status of the application. Possible values: processing, on-hold, accepted, rejected.
+ * @property \App\Models\User $user owning the application.
  * @property \App\Models\Event $event associated with the application.
- * @property \Carbon\Carbon    $deleted_at
- * @property \Carbon\Carbon    $created_at
- * @property \Carbon\Carbon    $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  */
 class Application extends Pivot
 {
@@ -26,6 +26,17 @@ class Application extends Pivot
      * @var string
      */
     protected $table = 'applications';
+
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'event',
+        'user',
+    ];
 
     /**
      * Relationship: An application belongs to an event.
@@ -46,4 +57,27 @@ class Application extends Pivot
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * When a user withdraw his application to an event, we mark the applications's status as withdrawn.
+     */
+    public function withdraw()
+    {
+        return $this->update(['status' => 'withdrawn']);
+    }
+
+    /**
+     * After withdrawn, if the user decides to reapply, we change the status back to processing..
+     *
+     * @return boolean
+     */
+    public function reapply()
+    {
+        if ($this->status !== 'withdrawn') {
+            return false;
+        }
+
+        return $this->update(['status' => 'processing']);
+    }
+
 }
