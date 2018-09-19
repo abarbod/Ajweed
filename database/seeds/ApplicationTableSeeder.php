@@ -28,6 +28,11 @@ class ApplicationTableSeeder extends Seeder
             // pick random users to apply for this event.
             $users->random(rand(0, 30))
                   ->each(function (User $user) use ($event) {
+
+                      if ($user->isAdmin()) {
+                          return;
+                      }
+
                       $event->applyBy($user);
                   });
         });
