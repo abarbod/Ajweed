@@ -29,6 +29,7 @@ class EventApplicationController extends Controller
         return new ApplicationResource($application);
     }
 
+    
     /**
      * Apply for an event.
      *
